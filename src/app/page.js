@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Home() {
     return (
         <div>
@@ -7,3 +5,11 @@ export default function Home() {
         </div>
     );
 }
+// components/
+// └── Navbar/
+//     ├── Navbar.jsx          // Main navbar
+//     ├── DesktopNav.jsx      // Desktop navigation
+//     ├── MobileNav.jsx       // Mobile menu
+//     ├── DashboardMenu.jsx   // Role-based dropdown
+//     ├── SearchBar.jsx       // Global search
+//     └── navLinks.js
