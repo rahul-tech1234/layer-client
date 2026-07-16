@@ -51,7 +51,7 @@ export default function Hero() {
         setCurrent((current - 1 + slides.length) % slides.length);
 
     return (
-        <section className="relative h-screen-auto overflow-hidden">
+        <section className="relative min-h-screen overflow-hidden">
             {/* Background Slides */}
             {slides.map((slide, index) => (
                 <div
@@ -82,8 +82,8 @@ export default function Hero() {
             {/* Content */}
             <div className="relative z-20 mx-auto flex h-full max-w-7xl items-center px-6 lg:px-10">
                 <div className="max-w-3xl text-white">
-                    <div className="inline-flex items-center gap-3 rounded-full border border-yellow-400/40 bg-white/10 px-5 py-2 backdrop-blur-md">
-                        <div className="text-yellow-400">
+                    <div className="inline-flex items-center gap-3 rounded-full border border-yellow-400/40 bg-white/10 px-5 py-2 backdrop-blur-md mt-3">
+                        <div className="text-yellow-400 ">
                             {slides[current].icon}
                         </div>
                         <span className="font-medium tracking-wide">
@@ -118,7 +118,7 @@ export default function Hero() {
                     </div>
 
                     {/* Buttons */}
-                    <div className="mt-12 flex flex-wrap gap-5">
+                    <div className="mt-12 flex flex-wrap gap-5  items-center justify-start mb-4">
                         <button className="rounded-xl bg-yellow-500 px-8 py-4 text-lg font-bold text-black transition hover:scale-105 hover:bg-yellow-400">
                             Free Consultation
                         </button>

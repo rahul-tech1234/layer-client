@@ -4,8 +4,9 @@ import { Avatar, Button, Link } from "@heroui/react";
 import { usePathname } from "next/navigation";
 import SearchBar from "./SearchBar";
 import { TiThMenu } from "react-icons/ti";
+import { ScalesBalanced } from "@gravity-ui/icons";
 
-export function MobileNav() {
+export function Navbar() {
     const pathName = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navLinks = [
@@ -85,7 +86,12 @@ export function MobileNav() {
                             </span>
                         </div>
                         <Link href="/">
-                            <h1 className="text-2xl font-bold">Logo</h1>
+                            <div className="rounded-xl bg-amber-500 p-3">
+                                <ScalesBalanced
+                                    className="text-black"
+                                    size={26}
+                                />
+                            </div>
                         </Link>
                         {/* md lg device */}
                         <div className="hidden md:flex justyfy-between w-50 items-center">
