@@ -18,6 +18,23 @@ export function MobileNav() {
             href: "/browse-lawyers",
         },
     ];
+    //    useEffect(() => {
+    //         const handleClickOutside = (event) => {
+    //             if (
+    //                 dropdownRef.current &&
+    //                 !dropdownRef.current.contains(event.target)
+    //             ) {
+    //                 setOpen(false);
+    //             }
+    //         };
+
+    //         document.addEventListener("mousedown", handleClickOutside);
+
+    //         return () => {
+    //             document.removeEventListener("mousedown", handleClickOutside);
+    //         };
+    //     }, []);
+
     const links = (
         <>
             {navLinks.map((navLink) => {
@@ -58,7 +75,7 @@ export function MobileNav() {
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                             />
                             <span
-                                className={`absolute left-0 top-full w-30 bg-white  shadow-lg transition-all duration-300 ease-out ${
+                                className={`p-2 absolute left-0 top-full w-30 bg-white  shadow-lg transition-all duration-300 ease-out ${
                                     isMenuOpen
                                         ? "translate-y-5 opacity-100 visible"
                                         : "-translate-y-5 opacity-0 invisible"
@@ -71,7 +88,9 @@ export function MobileNav() {
                             <h1 className="text-2xl font-bold">Logo</h1>
                         </Link>
                         {/* md lg device */}
-                        <div className="hidden md:flex gap-5">{links}</div>
+                        <div className="hidden md:flex justyfy-between w-50 items-center">
+                            {links}
+                        </div>
                     </div>
                     {/* ===== CENTER ===== */}
                     <div>
@@ -96,7 +115,9 @@ export function MobileNav() {
                                         }
                                     />
                                     <Avatar.Fallback>
-                                        {user?.name?.charAt(2)}
+                                        {user?.name
+                                            ?.charAt(2)
+                                            .toLocaleUpperCase()}
                                     </Avatar.Fallback>
                                 </Avatar>
                             </>

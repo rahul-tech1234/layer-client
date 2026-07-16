@@ -25,7 +25,7 @@ const SearchBar = () => {
         >
             <input
                 type="text"
-                value={search}
+                //value={search}
                 // onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search by lawyer or specialization..."
                 className="w-80 xl:w-96 rounded-full border border-gray-300 bg-white py-2.5 pl-12 pr-5 text-sm text-gray-700 shadow-sm outline-none transition-all duration-300 placeholder:text-gray-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-100"
