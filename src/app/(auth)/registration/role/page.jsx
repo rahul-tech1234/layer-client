@@ -1,12 +1,37 @@
 "use client";
 
+import { useSession } from "@/lib/auth-client";
 import { useState } from "react";
+import { addUserRole } from "../AddRole";
 
 export default function Role() {
+    const { data: session } = useSession();
+    const user = session?.user;
+    //console.log(user,'user');
+    const email = user?.email;
+    console.log(email, "email");
+    //console.log("_id", _id);
+    const handleRole = async (e) => {
+        e.preventDefault();
+        const role = e.target.role.value;
+        const res = await fetch(`http://localhost:5000/api/user/${email}`, {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({ role }),
+        });
+        const updateUser = await res.json();
+        console.log(updateUser);
+    };
+
     const [role, setRole] = useState("client");
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-            <form className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
+            <form
+                className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg"
+                onSubmit={handleRole}
+            >
                 <h2 className="text-3xl font-bold text-center mb-2">
                     Choose Your Role
                 </h2>

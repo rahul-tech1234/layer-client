@@ -5,9 +5,12 @@ import { usePathname } from "next/navigation";
 import SearchBar from "./SearchBar";
 import { TiThMenu } from "react-icons/ti";
 import { ArrowRightFromSquare, ScalesBalanced } from "@gravity-ui/icons";
-import { authClient } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
+import Logo from "./Logo";
 
 export function Navbar() {
+    const { data: session } = useSession();
+    const user = session?.user;
     const pathName = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [openDashboard, setOpenDashboard] = useState();
@@ -61,14 +64,6 @@ export function Navbar() {
     const handleLogOut = async () => {
         await authClient.signOut();
     };
-    const user = "";
-    // const user = {
-    //     id: "usr_001",
-    //     name: "Rahul Das",
-    //     email: "rahul@example.com",
-    //     photoURL: "https://i.pravatar.cc/150?img=12",
-    //     role: "lawyer", // "lawyer" | "client"
-    // };
 
     return (
         <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg">
@@ -93,12 +88,7 @@ export function Navbar() {
                             </span>
                         </div>
                         <Link href="/">
-                            <div className="rounded-xl bg-amber-500 p-3">
-                                <ScalesBalanced
-                                    className="text-black"
-                                    size={26}
-                                />
-                            </div>
+                            <Logo />
                         </Link>
                         {/* md lg device */}
                         <div className="hidden md:flex justyfy-between w-50 items-center">

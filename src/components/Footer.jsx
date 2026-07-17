@@ -1,16 +1,11 @@
 "use client";
-
 import Link from "next/link";
-import { Button, Input } from "@heroui/react";
+import { Button } from "@heroui/react";
 import { FaInstagram, FaTwitter } from "react-icons/fa";
-import {
-    ScalesBalanced,
-    LogoFacebook,
-    LogoLinkedin,
-    Envelope,
-    ArrowRight,
-} from "@gravity-ui/icons";
+import { LogoFacebook, LogoLinkedin, ArrowRight } from "@gravity-ui/icons";
 import { FiMail } from "react-icons/fi";
+import Logo from "./Logo";
+Logo;
 
 export default function Footer() {
     const quickLinks = [
@@ -55,10 +50,7 @@ export default function Footer() {
                     <div>
                         <div className="flex items-center gap-3">
                             <div className="rounded-xl bg-amber-500 p-3">
-                                <ScalesBalanced
-                                    className="text-black"
-                                    size={26}
-                                />
+                                <Logo />
                             </div>
 
                             <div>
