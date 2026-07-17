@@ -1,14 +1,17 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Avatar, Button, Link } from "@heroui/react";
 import { usePathname } from "next/navigation";
 import SearchBar from "./SearchBar";
 import { TiThMenu } from "react-icons/ti";
-import { ScalesBalanced } from "@gravity-ui/icons";
+import { ArrowRightFromSquare, ScalesBalanced } from "@gravity-ui/icons";
+import { authClient } from "@/lib/auth-client";
 
 export function Navbar() {
     const pathName = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [openDashboard, setOpenDashboard] = useState();
+    const dropdownRef = useRef(null);
     const navLinks = [
         {
             title: "Home",
@@ -19,22 +22,22 @@ export function Navbar() {
             href: "/browse-lawyers",
         },
     ];
-    //    useEffect(() => {
-    //         const handleClickOutside = (event) => {
-    //             if (
-    //                 dropdownRef.current &&
-    //                 !dropdownRef.current.contains(event.target)
-    //             ) {
-    //                 setOpen(false);
-    //             }
-    //         };
+    // useEffect(() => {
+    //     const handleClickOutside = (event) => {
+    //         if (
+    //             dropdownRef.current &&
+    //             !dropdownRef.current.contains(event.target)
+    //         ) {
+    //             setOpen(false);
+    //         }
+    //     };
 
-    //         document.addEventListener("mousedown", handleClickOutside);
+    //     document.addEventListener("mousedown", handleClickOutside);
 
-    //         return () => {
-    //             document.removeEventListener("mousedown", handleClickOutside);
-    //         };
-    //     }, []);
+    //     return () => {
+    //         document.removeEventListener("mousedown", handleClickOutside);
+    //     };
+    // }, []);
 
     const links = (
         <>
@@ -55,13 +58,17 @@ export function Navbar() {
             })}
         </>
     );
-    const user = {
-        id: "usr_001",
-        name: "Rahul Das",
-        email: "rahul@example.com",
-        photoURL: "https://i.pravatar.cc/150?img=12",
-        role: "lawyer", // "lawyer" | "client"
+    const handleLogOut = async () => {
+        await authClient.signOut();
     };
+    const user = "";
+    // const user = {
+    //     id: "usr_001",
+    //     name: "Rahul Das",
+    //     email: "rahul@example.com",
+    //     photoURL: "https://i.pravatar.cc/150?img=12",
+    //     role: "lawyer", // "lawyer" | "client"
+    // };
 
     return (
         <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg">
@@ -107,26 +114,54 @@ export function Navbar() {
                         {!user ? (
                             <>
                                 {/* if not logged */}
-                                <Button className="rounded-sm">Log In</Button>
+                                <Button className="rounded-sm">
+                                    <Link href="/login">Log In</Link>
+                                </Button>
                                 {/* if logged in */}
                             </>
                         ) : (
-                            <>
-                                <Avatar className="border-2 border-purple-500">
+                            <div className="relative">
+                                <Avatar
+                                    className="cursor-pointer border-2 border-purple-500"
+                                    onClick={() =>
+                                        setOpenDashboard((prev) => !prev)
+                                    }
+                                >
                                     <Avatar.Image
-                                        alt={user?.name || "Jhon Doe"}
+                                        alt={user?.name || "User"}
                                         src={
                                             user?.photoURL ||
                                             "https://img.heroui.chat/image/avatar?w=400&h=400&u=3"
                                         }
                                     />
                                     <Avatar.Fallback>
-                                        {user?.name
-                                            ?.charAt(2)
-                                            .toLocaleUpperCase()}
+                                        {user?.name?.charAt(0).toUpperCase()}
                                     </Avatar.Fallback>
                                 </Avatar>
-                            </>
+
+                                <div
+                                    className={`absolute right-0 top-14 w-52 rounded-xl bg-white shadow-lg border p-2 transition-all duration-300 ${
+                                        openDashboard
+                                            ? "opacity-100 scale-100 visible"
+                                            : "opacity-0 scale-95 invisible"
+                                    }`}
+                                >
+                                    <Link
+                                        href={`/dashboard/${user?.role}/${user?.role}`}
+                                        className="block w-full rounded-md px-3 py-2 hover:bg-purple-100 transition"
+                                    >
+                                        Dashboard
+                                    </Link>
+
+                                    <button
+                                        className="mt-2 w-full rounded-md px-3 py-2 text-left text-red-500 hover:bg-red-100 transition flex items-center gap-2"
+                                        onClick={handleLogOut}
+                                    >
+                                        <ArrowRightFromSquare className="inline-block" />{" "}
+                                        Log Out
+                                    </button>
+                                </div>
+                            </div>
                         )}
                     </div>
                 </div>
