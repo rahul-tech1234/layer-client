@@ -4,7 +4,9 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { FaHome, FaArrowLeft, FaBalanceScale } from "react-icons/fa";
 
+
 export default function NotFound() {
+   
     return (
         <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-950 px-4 py-8 sm:px-6">
             {/* Background Glow */}
@@ -36,7 +38,8 @@ export default function NotFound() {
                 </h2>
 
                 <p className="mx-auto mt-4 max-w-md text-sm leading-6 text-slate-300 sm:text-base">
-                    The page you're looking for doesn't exist or has been moved.
+                    The page you&#39;re looking for doesn&#39;t exist or has
+                    been moved.
                 </p>
 
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">

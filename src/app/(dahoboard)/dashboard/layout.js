@@ -1,13 +1,15 @@
 import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
-import Logo from "@/components/Logo";
 
 const DashboardLayout = ({ children }) => {
     return (
         <div className="flex min-h-screen bg-black">
-            <aside className="w-64 h-screen border-r border-white">
+            {/* Sidebar */}
+            <aside className="h-screen shrink-0 border-r border-white">
                 <DashboardSidebar />
             </aside>
-            <div>{children}</div>
+
+            {/* Dynamic Content Area */}
+            <main className="flex-1 min-w-0 overflow-x-hidden">{children}</main>
         </div>
     );
 };

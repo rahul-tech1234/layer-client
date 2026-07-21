@@ -7,6 +7,7 @@ import { TiThMenu } from "react-icons/ti";
 import { ArrowRightFromSquare, ScalesBalanced } from "@gravity-ui/icons";
 import { authClient, useSession } from "@/lib/auth-client";
 import Logo from "./Logo";
+import ThemeSwitch from "./ThemeSwitch";
 
 export function Navbar() {
     const { data: session } = useSession();
@@ -100,7 +101,8 @@ export function Navbar() {
                         <SearchBar />
                     </div>
                     {/* ===== RIGHT ===== */}
-                    <div>
+                    <div className="flex justify-between items-center gap-4">
+                        <ThemeSwitch />
                         {!user ? (
                             <>
                                 {/* if not logged */}
@@ -120,7 +122,7 @@ export function Navbar() {
                                     <Avatar.Image
                                         alt={user?.name || "User"}
                                         src={
-                                            user?.photoURL ||
+                                            user?.image ||
                                             "https://img.heroui.chat/image/avatar?w=400&h=400&u=3"
                                         }
                                     />
@@ -137,8 +139,8 @@ export function Navbar() {
                                     }`}
                                 >
                                     <Link
-                                        href={`/dashboard/${user?.role}/${user?.role}`}
-                                        className="block w-full rounded-md px-3 py-2 hover:bg-purple-100 transition"
+                                        href={`/dashboard/${user?.role}/add-service`}
+                                        className="block w-full rounded-md px-3 py-2 hover:bg-purple-100 transition text-gray-500"
                                     >
                                         Dashboard
                                     </Link>

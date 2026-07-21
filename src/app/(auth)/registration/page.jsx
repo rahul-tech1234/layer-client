@@ -11,9 +11,11 @@ import {
     FaEye,
     FaEyeSlash,
     FaGavel,
+    FaImage,
 } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { uploadImage } from "@/utils/uploadimage";
 
 export default function RegisterPage() {
     const [showPassword, setShowPassword] = useState(false);
@@ -29,20 +31,26 @@ export default function RegisterPage() {
     } = useForm();
     console.log(errors);
     const handleSignUp = async (data) => {
+        const photo = data?.image[0];
+        const userPro = await uploadImage(photo);
+
         if (data?.confirmPassword !== data?.password) {
             setChkPassword(true);
             return;
         }
-        setChkPassword(false);
+        //setChkPassword(false);
         setLoading(true);
+
         try {
             const { data: registerData, error: registerError } =
                 await authClient.signUp.email({
                     ...data,
+                    image: userPro,
                 });
+            console.log(data);
             if (registerData) {
                 toast.success("Welcome! Your account has been created.");
-                router.push("/registration/role");
+                // router.push("/registration/role");
                 return;
             }
             if (registerError) {
@@ -51,12 +59,12 @@ export default function RegisterPage() {
                         "Registration failed. Please try again.",
                 );
             }
-            console.log(
-                registerData,
-                "registerData",
-                registerError,
-                "registerError",
-            );
+            // console.log(
+            //     registerData,
+            //     "registerData",
+            //     registerError,
+            //     "registerError",
+            // );
         } catch (error) {
             console.log(error);
         } finally {
@@ -137,7 +145,6 @@ export default function RegisterPage() {
                         className="space-y-5"
                     >
                         {/* Name */}
-
                         <div className="relative">
                             <FaUser className="absolute left-4 top-4 text-gray-400" />
 
@@ -158,9 +165,7 @@ export default function RegisterPage() {
                                 </span>
                             )}
                         </div>
-
                         {/* Email */}
-
                         <div className="relative">
                             <FaEnvelope className="absolute left-4 top-4 text-gray-400" />
 
@@ -181,9 +186,7 @@ export default function RegisterPage() {
                                 </span>
                             )} */}
                         </div>
-
                         {/* Password */}
-
                         <div className="relative">
                             <FaLock className="absolute left-4 top-4 text-gray-400" />
 
@@ -263,9 +266,54 @@ export default function RegisterPage() {
                                 </span>
                             )}
                         </div>
+                        {/* Image */}
 
+                        <div className="relative">
+                            <FaImage className="absolute left-4 top-4 text-gray-400" />
+
+                            <label
+                                htmlFor="image"
+                                className="flex items-center w-full pl-12 pr-4 py-3 rounded-xl bg-white/10 border border-white/20 text-gray-400 cursor-pointer"
+                            >
+                                Upload Image
+                            </label>
+
+                            <input
+                                {...register("image", {
+                                    required: "Please upload an image",
+                                })}
+                                type="file"
+                                id="image"
+                                accept="image/*"
+                                className="hidden"
+                            />
+
+                            {errors?.image && (
+                                <span className="text-red-500 text-sm mt-1 block">
+                                    {errors.image.message}
+                                </span>
+                            )}
+                        </div>
+                        {/* Role */}
+                        <select
+                            defaultValue=""
+                            id="role"
+                            required
+                            {...register("role", {
+                                required: "Select role",
+                            })}
+                            className="w-full rounded-lg border border-gray-300 p-3 outline-none focus:border-primary"
+                        >
+                            <option value="" disabled>
+                                Select Your Role
+                            </option>
+                            <option value="client">Client</option>
+                            <option value="lawyer">Lawyer</option>
+                        </select>
+                        {errors && errors?.role && (
+                            <span>{errors?.role?.message}</span>
+                        )}
                         {/* Terms */}
-
                         {/* <label className="flex items-center gap-3 text-gray-300">
                             <input
                                 type="checkbox"
@@ -276,9 +324,7 @@ export default function RegisterPage() {
                             />
                             I agree to the Terms & Conditions
                         </label> */}
-
                         {/* Submit */}
-
                         <button
                             disabled={loading}
                             className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold hover:scale-105 transition duration-300"

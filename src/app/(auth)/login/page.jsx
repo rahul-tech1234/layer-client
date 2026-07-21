@@ -57,7 +57,7 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex items-center justify-center px-5">
+        <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex items-center justify-center px-5 h-screen">
             <div className=" rounded-3xl overflow-hidden shadow-2xl bg-white/10 backdrop-blur-xl border border-white/10">
                 {/* Left Side */}
 
@@ -96,7 +96,7 @@ export default function LoginPage() {
                         <div>✔ End-to-End Privacy</div>
                         <div>✔ Fast Consultation Booking</div>
                     </div>
-                </div> */}
+                </div> *
 
                 {/* Right */}
 
@@ -111,7 +111,7 @@ export default function LoginPage() {
                         </p>
 
                         <button
-                            className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-xl py-3 hover:bg-gray-100 transition"
+                            className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-xl py-3 hover:bg-gray-100 transition text-gray-500"
                             onClick={googleSignIn}
                         >
                             <FaGoogle className="text-red-500" />
@@ -141,7 +141,7 @@ export default function LoginPage() {
                                     name="email"
                                     id="email"
                                     placeholder="Email address"
-                                    className="w-full pl-12 py-3 rounded-xl border focus:border-indigo-600 outline-none"
+                                    className="w-full pl-12 py-3 rounded-xl border focus:border-indigo-600 outline-none text-gray-400"
                                     required
                                 />
                                 {errors && errors?.email && (
@@ -151,7 +151,7 @@ export default function LoginPage() {
                                 )}
                             </div>
 
-                            <div className="relative">
+                            <div className="relative text-gray-500">
                                 <FaLock className="absolute left-4 top-4 text-gray-400" />
 
                                 <input
