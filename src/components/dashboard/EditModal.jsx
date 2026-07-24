@@ -1,11 +1,13 @@
 "use client";
 
-import { Envelope } from "@gravity-ui/icons";
-import { Button, Input, Label, Modal, Surface, TextField } from "@heroui/react";
+import { updateService } from "@/lib/api/lawyer/action";
+import { Modal, Button } from "@heroui/react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { BiEditAlt } from "react-icons/bi";
-BiEditAlt;
+
 export function EditModal({ service }) {
-    const catagories = [
+    const categories = [
         "Criminal Law",
         "Family Law",
         "Property Law",
@@ -14,123 +16,162 @@ export function EditModal({ service }) {
         "Cyber Law",
         "Tax Law",
     ];
+    const {_id, title, category, conFee, serviceName, location, lawyerEmail } =
+        service;
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+    const handleUpdateService = async(data) => {
+        const sevice = await updateService(data, _id); 
+       // console.log(sevice);
+        if (sevice?.modifiedCount > 0) {
+            toast.success("Update success");
+        }
+    };
+
     return (
         <Modal>
-            <Button variant="secondary">
-                <BiEditAlt />
+            <Button variant="secondary" isIconOnly>
+                <BiEditAlt className="text-lg" />
             </Button>
-            <Modal.Backdrop>
-                <Modal.Container placement="auto">
-                    <Modal.Dialog className="sm:max-w-md">
-                        <Modal.CloseTrigger />
-                        <Modal.Header>
-                            <Modal.Icon className="bg-accent-soft text-accent-soft-foreground">
-                                <Envelope className="size-5" />
-                            </Modal.Icon>
-                            <Modal.Heading>Contact Us</Modal.Heading>
-                            <p className="mt-1.5 text-sm leading-5 text-muted">
-                                Fill out the form below and we&#39;ll get back
-                                to you. The modal adapts automatically when the
-                                keyboard appears on mobile.
-                            </p>
-                        </Modal.Header>
-                        <Modal.Body className="p-6">
-                            <Surface variant="default">
-                                <form className="flex flex-col gap-4">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                        {/* Title */}
-                                        <TextField
-                                            className="w-full"
-                                            name="name"
-                                            type="text"
-                                            id="title"
-                                            variant="secondary"
-                                        >
-                                            <Label>Title</Label>
-                                            <Input placeholder="Service title" />
-                                        </TextField>
 
-                                        {/* Category */}
+            <Modal.Backdrop>
+                <Modal.Container placement="center">
+                    <Modal.Dialog className="w-[95vw] max-w-sm sm:max-w-lg md:max-w-2xl lg:max-w-4xl rounded-xl">
+                        <Modal.CloseTrigger />
+
+                        <Modal.Header>
+                            <Modal.Heading>Edit Service</Modal.Heading>
+                        </Modal.Header>
+
+                        <Modal.Body>
+                            <form
+                                id="editServiceForm"
+                                onSubmit={handleSubmit(handleUpdateService)}
+                                className="space-y-5"
+                            >
+                                {/* Title & Category */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block mb-2 font-medium">
+                                            Title
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            {...register("title")}
+                                            defaultValue={title}
+                                            className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent px-4 py-3 outline-none"
+                                            placeholder="Service Title"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block mb-2 font-medium">
+                                            Category
+                                        </label>
+
                                         <select
-                                            // {...register("category", {
-                                            //     required:
-                                            //         "Select  service category",
-                                            // })}
-                                            name="category"
+                                            {...register("category")}
                                             id="category"
-                                            required
-                                            className="w-full bg-[#2A2A2A] border border-gray-700 rounded-lg px-4 py-3 text-white"
+                                            defaultValue={category}
+                                            className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent px-4 py-3 outline-none"
                                         >
-                                            {catagories.map((cat) => (
-                                                <option key={cat}>{cat}</option>
+                                            {categories.map((cat) => (
+                                                <option key={cat} value={cat}>
+                                                    {cat}
+                                                </option>
                                             ))}
                                         </select>
                                     </div>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                        {/* Email readOnly */}
-                                        <TextField
-                                            className="w-full"
-                                            name="email"
-                                            id="email"
+                                </div>
+
+                                {/* Email & Fee */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block mb-2 font-medium">
+                                            Email
+                                        </label>
+
+                                        <input
                                             type="email"
-                                            variant="secondary"
-                                        >
-                                            <Label>Email</Label>
-                                            <Input
-                                                value={service?.lawyerEmail}
-                                                readOnly
-                                            />
-                                        </TextField>
-                                        {/* conFee */}
-                                        <TextField
-                                            className="w-full"
-                                            id="conFee"
+                                            {...register("lawyerEmail")}
+                                            readOnly
+                                            id="lawyerEmail"
+                                            value={lawyerEmail}
+                                            className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 px-4 py-3 outline-none"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block mb-2 font-medium">
+                                            Consultation Fee
+                                        </label>
+
+                                        <input
                                             type="number"
-                                            variant="secondary"
-                                        >
-                                            <Label>Consultation Fee</Label>
-                                            <Input placeholder="Consultation fee" />
-                                        </TextField>
+                                            {...register("conFee")}
+                                            id="conFee"
+                                            defaultValue={conFee}
+                                            className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent px-4 py-3 outline-none"
+                                            placeholder="Consultation Fee"
+                                        />
                                     </div>
-                                    <div className="grid grid-cols-1 md:grid-cols-2">
-                                        {/*  Consultation Type */}
-                                        <TextField
-                                            className="w-full"
+                                </div>
+
+                                {/* Service Type & Location */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block mb-2 font-medium">
+                                            Consultation Type
+                                        </label>
+
+                                        <select
+                                            {...register("serviceName")}
                                             id="serviceName"
-                                            variant="secondary"
+                                            defaultValue={serviceName}
+                                            className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent px-4 py-3 outline-none"
                                         >
-                                            <Label>Consultation Type</Label>
-                                            <Input placeholder="Consultation Type" />
-                                        </TextField>
-                                        {/* Location */}
-                                        <TextField
-                                            className="w-full"
+                                            <option value="Online">
+                                                Online
+                                            </option>
+                                            <option value="Offline">
+                                                Offline
+                                            </option>
+                                            <option value="Both">Both</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="block mb-2 font-medium">
+                                            Location
+                                        </label>
+
+                                        <input
+                                            type="text"
                                             id="location"
-                                            variant="secondary"
-                                        >
-                                            <Label>Location</Label>
-                                            <Input placeholder="Location" />
-                                        </TextField>
+                                            defaultValue={location}
+                                            {...register("location")}
+                                            className="w-full rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent px-4 py-3 outline-none"
+                                            placeholder="Location"
+                                        />
                                     </div>
-                                    {/* Message area */}
-                                    <div className="w-full">
-                                        <TextField
-                                            className="w-full"
-                                            name="message"
-                                            variant="secondary"
-                                        >
-                                            <Label>Message</Label>
-                                            <Input placeholder="Enter your message" />
-                                        </TextField>
-                                    </div>
-                                </form>
-                            </Surface>
+                                </div>
+                            </form>
                         </Modal.Body>
+
                         <Modal.Footer>
                             <Button slot="close" variant="secondary">
                                 Cancel
                             </Button>
-                            <Button slot="close">Send Message</Button>
+
+                            <Button type="submit" form="editServiceForm">
+                                Update Service
+                            </Button>
                         </Modal.Footer>
                     </Modal.Dialog>
                 </Modal.Container>

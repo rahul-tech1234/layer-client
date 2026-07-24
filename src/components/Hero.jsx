@@ -8,6 +8,7 @@ import {
     ChevronRight,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const slides = [
@@ -123,9 +124,9 @@ export default function Hero() {
                             Free Consultation
                         </button>
 
-                        <button className="rounded-xl border border-white/40 bg-white/10 px-8 py-4 text-lg font-semibold backdrop-blur-md transition hover:bg-white hover:text-black">
+                        <Link href={'/browse-lawyers'} className="rounded-xl border border-white/40 bg-white/10 px-8 py-4 text-lg font-semibold backdrop-blur-md transition hover:bg-white hover:text-black">
                             Our Services
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>

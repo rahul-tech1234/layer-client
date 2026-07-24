@@ -9,13 +9,15 @@ import { authClient, useSession } from "@/lib/auth-client";
 import Logo from "./Logo";
 import ThemeSwitch from "./ThemeSwitch";
 
-export function Navbar() {
+export function Navbar({ searchParams }) {
+    const [params, setParams] = useState(null);
     const { data: session } = useSession();
     const user = session?.user;
     const pathName = usePathname();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [openDashboard, setOpenDashboard] = useState();
     const dropdownRef = useRef(null);
+
     const navLinks = [
         {
             title: "Home",
@@ -27,21 +29,18 @@ export function Navbar() {
         },
     ];
     // useEffect(() => {
-    //     const handleClickOutside = (event) => {
-    //         if (
-    //             dropdownRef.current &&
-    //             !dropdownRef.current.contains(event.target)
-    //         ) {
-    //             setOpen(false);
-    //         }
+    //     const handlseSearchName = async () => {
+    //         const sParams = await searchParams;
+    //         return setParams(sParams);
     //     };
+    //     handlseSearchName();
+    // });
+    //    useEffect(() => {
+    //        const handleSearchByTitle = async () => {
+    //            const params = new URLSearchParams();
 
-    //     document.addEventListener("mousedown", handleClickOutside);
-
-    //     return () => {
-    //         document.removeEventListener("mousedown", handleClickOutside);
-    //     };
-    // }, []);
+    //        };
+    //    });
 
     const links = (
         <>
@@ -139,7 +138,7 @@ export function Navbar() {
                                     }`}
                                 >
                                     <Link
-                                        href={`/dashboard/${user?.role}/add-service`}
+                                        href={`/dashboard/${user?.role}`}
                                         className="block w-full rounded-md px-3 py-2 hover:bg-purple-100 transition text-gray-500"
                                     >
                                         Dashboard

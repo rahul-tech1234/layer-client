@@ -24,3 +24,23 @@ export const deleteService = async (id) => {
     const res = await serverDltMutation(`api/lawyer/${id}`, "DELETE");
     return await res;
 };
+
+export const hireingStatus = async (data) => {
+    const res = await serverMutation("api/hirings", "POST", data);
+    console.log(res);
+    return await res;
+};
+export const hireingStatusUpdateAccpted = async (id, data) => {
+    const res = await serverMutation(`api/hirings/accept/${id}`, "PATCH", data);
+    //console.log(res);
+    return await res;
+};
+export const hireingStatusUpdateRejected = async (id, data) => {
+    const res = await serverMutation(
+        `/api/hirings/rejected/${id}`,
+        "PATCH",
+        data,
+    );
+    //console.log(res);
+    return await res;
+};

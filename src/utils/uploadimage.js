@@ -11,7 +11,7 @@ export const uploadImage = async (imageFile) => {
         },
     );
     const data = await Response.json();
-
+    console.log("data", data);
     if (!data.success) {
         toast.error("Image upload faield");
     }

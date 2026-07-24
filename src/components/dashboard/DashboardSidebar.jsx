@@ -159,7 +159,7 @@ export default function DashboardSidebar() {
                             width={56}
                             height={56}
                             alt={user?.name || "avatar"}
-                            src="https://i.pravatar.cc/100"
+                            src={user?.image || "https://i.pravatar.cc/100"}
                             className="w-14 h-14 rounded-full object-cover"
                         />
 

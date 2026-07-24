@@ -35,14 +35,15 @@ const AddService = () => {
             ...data,
             banner: bannerUrl,
             lawyerEmail: user?.email,
+            status: "active"
         };
         setUploading(false);
         const result = await addService(addData);
         if (result?.insertedId) {
             toast.success("Service Added");
             route.push("/dashboard/lawyer/manage-legal-profile");
-        }else{
-            toast.error(result?.message || "Event not created...")
+        } else {
+            toast.error(result?.message || "Event not created...");
         }
 
         console.log("result", result);
@@ -100,7 +101,9 @@ const AddService = () => {
                                 className="w-full bg-[#2A2A2A] border border-gray-700 rounded-lg px-4 py-3 text-white"
                             >
                                 {catagories.map((cat) => (
-                                    <option key={cat}>{cat}</option>
+                                    <option key={cat} value={cat}>
+                                        {cat}
+                                    </option>
                                 ))}
                             </select>
                             {errors && errors?.category && (

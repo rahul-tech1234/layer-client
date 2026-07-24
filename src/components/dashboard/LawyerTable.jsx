@@ -1,18 +1,11 @@
 "use client";
 
 import React from "react";
-import { Table, Chip, Avatar, Button, Input, Card } from "@heroui/react";
+import { Table, Chip, Avatar, Button } from "@heroui/react";
 
-import {
-    FiSearch,
-    FiEye,
-    FiEdit2,
-    FiTrash2,
-    FiGithub,
-    FiPlus,
-} from "react-icons/fi";
+import { FiEye, FiPlus } from "react-icons/fi";
 import { Delete } from "./Delete";
-import { convertServerPatchToFullTree } from "next/dist/client/components/segment-cache/navigation";
+
 import { EditModal } from "./EditModal";
 import { HiOutlineBriefcase } from "react-icons/hi";
 import Link from "next/link";

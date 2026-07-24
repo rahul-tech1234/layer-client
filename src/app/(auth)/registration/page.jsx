@@ -1,6 +1,6 @@
 "use client";
 
-import { authClient } from "@/lib/auth-client";
+import { authClient, useSession } from "@/lib/auth-client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -23,6 +23,9 @@ export default function RegisterPage() {
     const [chkpassword, setChkPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const { data: session, isPending } = useSession();
+    const user = session?.user;
+    console.log(user);
 
     const {
         register,
@@ -50,7 +53,12 @@ export default function RegisterPage() {
             console.log(data);
             if (registerData) {
                 toast.success("Welcome! Your account has been created.");
-                // router.push("/registration/role");
+                if (user?.role == "client") {
+                    router.push("/browse-lawyers");
+                    return;
+                } else {
+                    router.push(`/dashboard/${user?.role}/profile`);
+                }
                 return;
             }
             if (registerError) {
@@ -106,7 +114,9 @@ export default function RegisterPage() {
     //         setLoading(false);
     //     }, 2000);
     // };
-
+    if (isPending) {
+        return <h1>Loading...</h1>;
+    }
     return (
         <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-slate-900 to-black flex items-center justify-center px-4 py-10">
             <div className="w-full max-w-5xl grid md:grid-cols-2 bg-white/10 backdrop-blur-xl rounded-3xl overflow-hidden shadow-2xl border border-white/20">
