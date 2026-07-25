@@ -106,7 +106,7 @@ export function Navbar({ searchParams }) {
                             <>
                                 {/* if not logged */}
                                 <Button className="rounded-sm">
-                                    <Link href="/login">Log In</Link>
+                                    <Link href="/auth/login">Log In</Link>
                                 </Button>
                                 {/* if logged in */}
                             </>

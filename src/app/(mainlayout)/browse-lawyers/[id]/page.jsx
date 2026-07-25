@@ -11,11 +11,16 @@ const Details = async ({ params }) => {
     //const data = await getCmt(serId);
     //console.log(data);
     const details = await LawyerServiceDetails(id);
-    //console.log("Details page", details);
+    const cmt = await getCmt(details?._id);
+    //console.log("cmt page", cmt);
 
     return (
         <>
-            <LawyerDetails service={details} user={user?.user}></LawyerDetails>
+            <LawyerDetails
+                service={details}
+                user={user?.user}
+                cmt={cmt}
+            ></LawyerDetails>
         </>
     );
 };

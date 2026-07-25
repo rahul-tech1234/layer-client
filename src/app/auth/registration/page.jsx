@@ -345,7 +345,7 @@ export default function RegisterPage() {
                     <p className="text-center text-gray-300 mt-6">
                         Already have an account?
                         <Link
-                            href="/login"
+                            href="/auth/login"
                             className="text-blue-400 cursor-pointer ml-2"
                         >
                             Login

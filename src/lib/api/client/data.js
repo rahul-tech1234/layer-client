@@ -2,11 +2,16 @@ import { baseUrl } from "../baseUrl";
 
 export const ClienthireHistory = async (email) => {
     const result = await fetch(`${baseUrl}api/hirings/client/${email}`);
-
-    return await result.json();
+    const data = await result.json();
+    return data;
 };
 export const getCmt = async (id) => {
-    const res = fetch(`${baseUrl}/api/get/cmt/hireing/${id}`);
-    const data= await res.json();
+    const res = await fetch(`${baseUrl}api/get/cmt/hireing/${id}`);
+    const data = await res.json();
+    return data;
+};
+export const getMyAllcmt = async (email) => {
+    const res = await fetch(`${baseUrl}api/all/cmt/hireing/${email}`);
+    const data = await res.json();
     return data;
 };

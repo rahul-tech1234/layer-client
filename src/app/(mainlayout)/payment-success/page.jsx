@@ -2,6 +2,7 @@ import { baseUrl } from "@/lib/api/baseUrl";
 import { stripe } from "@/lib/stripe";
 import PaymentSuccess from "./PyamentSuccess";
 
+
 const PaymentSuccessPage = async ({ searchParams }) => {
     const { session_id } = await searchParams;
     if (!session_id)
@@ -23,7 +24,7 @@ const PaymentSuccessPage = async ({ searchParams }) => {
         transactionId: session?.payment_intent?.id,
         paymentStatus: session?.payment_status,
     };
-    console.log("meta", paymentData);
+    // console.log("meta", paymentData);
     const res = await fetch(`${baseUrl}api/hirings`, {
         method: "POST",
         headers: {
@@ -32,7 +33,8 @@ const PaymentSuccessPage = async ({ searchParams }) => {
         body: JSON.stringify(paymentData),
     });
     const data = await res.json();
-    console.log(data);
+    //console.log(data);
+  
     return (
         <div>
             <PaymentSuccess></PaymentSuccess>

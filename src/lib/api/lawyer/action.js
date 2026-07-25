@@ -46,6 +46,5 @@ export const hireingStatusUpdateRejected = async (id, data) => {
         "PATCH",
         data,
     );
-    //console.log(res);
     return await res;
 };

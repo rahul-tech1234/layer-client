@@ -5,7 +5,8 @@ import { hireingStatus } from "@/lib/api/lawyer/action";
 import { useSession } from "@/lib/auth-client";
 import { Avatar, Button, Card, Chip } from "@heroui/react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
 import {
     FaArrowRight,
     FaCalendarAlt,
@@ -15,14 +16,14 @@ import {
     FaUserTie,
 } from "react-icons/fa";
 
-export default function ServiceDetails({ service, user }) {
+export default function ServiceDetails({ service, user,cmt }) {
     //console.log("service", service);
     const id = service?._id;
     const { data: session } = useSession();
     const email = session?.user?.email;
 
     const [hire, setHire] = useState(false);
-    const [comment, setComment] = useState(false);
+
     const handleClintBook = async () => {
         const paymentData = {
             type: "hire",
@@ -55,7 +56,7 @@ export default function ServiceDetails({ service, user }) {
             clientEmail: email,
         };
         const res = await addCmt(id, data);
-        console.log(res);
+        console.log(res,"res");
     };
     return (
         <section className="max-w-7xl mx-auto px-5 py-10">
@@ -202,52 +203,42 @@ export default function ServiceDetails({ service, user }) {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.3 }}
                 >
-                    {comment ? (
-                        <>
-                            <Card className="sticky top-24 rounded-[28px] border border-default-200">
-                                <div className="rounded-3xl border border-default-200 bg-content1 p-6 shadow-md">
-                                    <h2 className="text-2xl font-bold text-foreground">
-                                        Leave a Comment
-                                    </h2>
+                    <Card className="sticky top-24 rounded-[28px] border border-default-200">
+                        <div className="rounded-3xl border border-default-200 bg-content1 p-6 shadow-md">
+                            <h2 className="text-2xl font-bold text-foreground">
+                                Leave a Comment
+                            </h2>
 
-                                    <p className="mt-2 mb-5 text-default-500">
-                                        Share your experience with this lawyer.
-                                    </p>
-                                    <form action="" onSubmit={handleCmt}>
-                                        <div>
-                                            <textarea
-                                                name="cmt"
-                                                rows={6}
-                                                placeholder="Write your comment here..."
-                                                className="w-full rounded-2xl border border-default-200 bg-transparent p-4 text-foreground outline-none transition-all duration-300 placeholder:text-default-400 focus:border-primary"
-                                            />
+                            <p className="mt-2 mb-5 text-default-500">
+                                Share your experience with this lawyer.
+                            </p>
+                            <form action="" onSubmit={handleCmt}>
+                                <div>
+                                    <textarea
+                                        name="cmt"
+                                        rows={6}
+                                        placeholder="Write your comment here..."
+                                        className="w-full rounded-2xl border border-default-200 bg-transparent p-4 text-foreground outline-none transition-all duration-300 placeholder:text-default-400 focus:border-primary"
+                                    />
 
-                                            <div className="mt-5 flex justify-end">
-                                                <button
-                                                    type="submit"
-                                                    className="rounded-full bg-primary px-6 py-2 font-medium text-white transition hover:opacity-90"
-                                                >
-                                                    Submit Comment
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    <div className="mt-5 flex justify-end">
+                                        <button
+                                            type="submit"
+                                            className="rounded-full bg-primary px-6 py-2 font-medium text-white transition hover:opacity-90"
+                                        >
+                                            Submit Comment
+                                        </button>
+                                    </div>
                                 </div>
-                            </Card>
-                        </>
-                    ) : (
-                        <>
-                            <div className="relative">
-                                {" "}
-                                <Button
-                                    onClick={() => setComment(!comment)}
-                                    className="absolute top-50 left-50"
-                                >
-                                    Comment
-                                </Button>
-                            </div>
-                        </>
-                    )}
+                            </form>
+                        </div>
+                    </Card>
+                    <Card>
+                        <h2>Your Comment</h2>
+                        <p className="text-muted">{cmt?.cmt}</p>
+                    </Card>
+
+                  
                 </motion.div>
             </div>
         </section>

@@ -1,5 +1,7 @@
 "use client";
 
+import { updateLawyerStatus } from "@/lib/api/client/action";
+import { hireingStatusUpdateAccpted } from "@/lib/api/lawyer/action";
 import { Button, Modal } from "@heroui/react";
 import Image from "next/image";
 import { useState } from "react";
@@ -11,8 +13,6 @@ import {
 } from "react-icons/fa";
 
 export function PayModal({ hire }) {
-    
-    
     const handlePayment = async () => {
         const paymentData = {
             type: "hire",
@@ -31,16 +31,37 @@ export function PayModal({ hire }) {
             },
             body: JSON.stringify(paymentData),
         });
+
+        const updatestatus = {
+            status: "busy",
+        };
+        //  const uddateLawyer=await updateLawyerStatus( hire?.serviceId,updatestatus)
         const data = await res.json();
         console.log("metaData", data);
         console.log("transactionId", data.transactionId);
-       
+        //update lawyer status and hire paymentStatus 
+        // if (data) {
+        //     const statusData = {
+        //         paymentStatus: "paid",
+        //     };
+        //     const payStatus = await hireingStatusUpdateAccpted(
+        //         paymentData?.serviceId,
+        //         ...statusData,
+        //     );
+        //     const lawyerStatus = await updateLawyerStatus(
+        //         paymentData?.serviceId,
+        //         updatestatus,
+        //     );
+        //     console.log(payStatus);
+
+        //     return;
+        // }
         if (data?.url) {
             window.location.href = data.url;
         }
         console.log("url", data);
     };
-      console.log(isPay, "after");
+
     return (
         <Modal>
             <Button variant="secondary">Pay Now</Button>
@@ -98,7 +119,6 @@ export function PayModal({ hire }) {
                                     color="primary"
                                     onClick={handlePayment}
                                     radius="full"
-                                    
                                     className="mt-8 w-full font-semibold"
                                     endContent={<FaArrowRight />}
                                 >

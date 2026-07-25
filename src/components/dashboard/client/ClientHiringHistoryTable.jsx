@@ -59,6 +59,8 @@ export default function ClientHiringHistoryTable({ hiringHistory }) {
 
                 <tbody>
                     {hiringHistory.map((hire) => {
+                        // console.log(hire?.paymentStatus === "unpaid", "hire");
+                        //console.log(hire);
                         const formattedDate = new Date(
                             hire.hiringDate,
                         ).toLocaleString("en-GB", {
@@ -109,9 +111,49 @@ export default function ClientHiringHistoryTable({ hiringHistory }) {
                                 </td>
 
                                 <td className="px-6 py-4 text-center">
+                                    {/* {hire.status === "accepted" ? (
+                                        hire.paymentStatus !== "paid" ? (
+                                            <PayModal hire={hire} />
+                                        ) : (
+                                            <span className="text-green-600 font-medium">
+                                                Paid
+                                            </span>
+                                        )
+                                    ) : hire.status === "pending" ? (
+                                        <Button
+                                            size="sm"
+                                            variant="flat"
+                                            isDisabled
+                                        >
+                                            Waiting
+                                        </Button>
+                                    ) : (
+                                        <span className="text-gray-400">—</span>
+                                    )} */}
+                                    {hire.status === "accepted" ? (
+                                        hire?.paymentStatus === "unpaid" ? (
+                                            <span>
+                                                <PayModal
+                                                    hire={hire}
+                                                ></PayModal>
+                                            </span>
+                                        ) : (
+                                            <span>Paid</span>
+                                        )
+                                    ) : (
+                                        <span>Wait</span>
+                                    )}
+                                </td>
+
+                                {/* <td className="px-6 py-4 text-center">
                                     {hire.status === "accepted" ? (
                                         <span>
                                             <PayModal hire={hire} />
+                                            {hire?.paymentStatus !== "paid" ? (
+                                                <PayModal hire={hire} />
+                                            ) : (
+                                                "Paid"
+                                            )}
                                         </span>
                                     ) : hire.status === "pending" ? (
                                         <Button
@@ -124,7 +166,7 @@ export default function ClientHiringHistoryTable({ hiringHistory }) {
                                     ) : (
                                         <span className="text-gray-400">—</span>
                                     )}
-                                </td>
+                                </td> */}
                             </tr>
                         );
                     })}

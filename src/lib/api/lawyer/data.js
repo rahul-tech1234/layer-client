@@ -19,6 +19,6 @@ export const LawyerServiceDetails = async (id) => {
     return await data.json();
 };
 export const hireHistory = async (email) => {
-    const result = await fetch(`${baseUrl}api/hirings/lawyer/${email},`);
+    const result = await fetch(`${baseUrl}api/hirings/lawyer/${email}`);
     return await result.json();
 };

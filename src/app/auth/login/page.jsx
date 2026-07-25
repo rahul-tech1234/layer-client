@@ -56,7 +56,6 @@ export default function LoginPage() {
             provider: "google",
         });
     };
-  
 
     return (
         <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex items-center justify-center px-5 h-screen">
@@ -214,7 +213,7 @@ export default function LoginPage() {
                         <p className="text-center text-gray-600 mt-8">
                             Don&apos;t have an account?
                             <Link
-                                href="/registration"
+                                href="/auth/registration"
                                 className="ml-2 text-indigo-600 font-semibold hover:underline"
                             >
                                 Create Account

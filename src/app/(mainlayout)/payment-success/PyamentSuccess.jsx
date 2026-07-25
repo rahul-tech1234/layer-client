@@ -17,7 +17,6 @@ export default function PaymentSuccess() {
         amount: 120,
         status: "Paid",
         date: new Date().toLocaleDateString(),
-        
     };
 
     return (
@@ -124,26 +123,28 @@ export default function PaymentSuccess() {
 
                     {/* Buttons */}
                     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                        <Button
-                            as={Link}
-                            href="/dashboard/user/hiring-history"
-                            color="success"
-                            radius="full"
-                            className="flex-1 font-semibold"
-                            endContent={<FaArrowRight />}
-                        >
-                            Hiring History
-                        </Button>
+                        <Link href="/dashboard/client/hiring-history">
+                            <Button
+                                as={Link}
+                                color="success"
+                                radius="full"
+                                className="flex-1 font-semibold"
+                                endContent={<FaArrowRight />}
+                            >
+                                Hiring History
+                            </Button>
+                        </Link>
 
-                        <Button
-                            as={Link}
-                            href="/browse-lawyers"
-                            variant="bordered"
-                            radius="full"
-                            className="flex-1"
-                        >
-                            Browse Lawyers
-                        </Button>
+                        <Link href="/browse-lawyers">
+                            <Button
+                                href="/browse-lawyers"
+                                variant="bordered"
+                                radius="full"
+                                className="flex-1"
+                            >
+                                Browse Lawyers
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </Card>

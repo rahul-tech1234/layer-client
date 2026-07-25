@@ -14,22 +14,25 @@ export default function HiringHistoryTable({ hirings }) {
         //console.log("-id", id);
         const data = {
             status: "accepted",
-            paymentStatus: "paid",
+            paymentStatus: "unpaid",
         };
         const res = await hireingStatusUpdateAccpted(id, data);
+    
         if (res.modifiedCount > 0) {
             console.log("Refetching...");
             router.refresh();
         }
-        c0nsole.log(res);
+        console.log(res);
     };
     const handleStatusReject = async (id) => {
         //console.log("-id", id);
+        
         const data = {
             status: "rejected",
             paymentStatus: "cancel",
         };
         const res = await hireingStatusUpdateAccpted(id, data);
+        
         if (res.modifiedCount > 0) {
             console.log("Refetching...");
             router.refresh();
@@ -56,7 +59,7 @@ export default function HiringHistoryTable({ hirings }) {
 
                 <tbody>
                     {hirings.map((item, index) => {
-                        //console.log(item?.status, "item");
+                        console.log(item, "item");
                         const id = item?._id;
                         const formattedDate = new Date(
                             item.hiringDate,
