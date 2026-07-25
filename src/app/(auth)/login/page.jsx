@@ -1,6 +1,6 @@
 "use client";
 
-import { authClient, useSession } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 import { Spinner } from "@heroui/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -19,23 +19,12 @@ export default function LoginPage() {
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
-    const { data: session, isPending } = useSession();
-    const role = session?.user?.role;
-
 
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm();
-    // const handleChange = (e) => {
-    //     const { name, value, checked, type } = e.target;
-
-    //     setForm({
-    //         ...form,
-    //         [name]: type === "checkbox" ? checked : value,
-    //     });
-    // };
 
     const handleLogIn = async (data) => {
         setLoading(true);
@@ -44,13 +33,14 @@ export default function LoginPage() {
                 await authClient.signIn.email({
                     ...data,
                 });
+            console.log("signInData", signInData);
             if (signInData) {
                 toast.success("Login Success");
-                if (role == "client") {
+                if (signInData?.user?.role === "client") {
                     router.push("/browse-lawyers");
                     return;
                 } else {
-                    router.push(`/dashboard/${role}/profile`);
+                    router.push(`/dashboard/${signInData?.user?.role}/profile`);
                 }
             }
             if (signInError) {
@@ -66,9 +56,7 @@ export default function LoginPage() {
             provider: "google",
         });
     };
-    if (isPending) {
-        return <h1>Loading...</h1>;
-    }
+  
 
     return (
         <div className="bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex items-center justify-center px-5 h-screen">

@@ -7,7 +7,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function ServiceCard({ services }) {
+export default function ServiceCard({ data }) {
+    //console.log("service", services);
+    //const { limit, skip, page, total_data, data } = services;
     const router = useRouter();
 
     const catagories = [
@@ -63,7 +65,7 @@ export default function ServiceCard({ services }) {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-11/12 mx-auto ">
                 {" "}
-                {services.map((service) => {
+                {data.map((service) => {
                     return (
                         <Link
                             href={`/browse-lawyers/${service?._id}`}

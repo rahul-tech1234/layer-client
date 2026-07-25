@@ -1,12 +1,15 @@
-import LawyerCard from "@/components/Card";
 import ServiceCard from "@/components/ServiceCard";
 import { allService } from "@/lib/api/lawyer/data";
+import { Pagination, Table } from "@heroui/react";
+import Link from "next/link";
 
 const BrowseLawyers = async ({ searchParams }) => {
     const sparams = await searchParams;
 
     const category = sparams.category || "";
     const search = sparams.search || "";
+    const page = sparams.page || 1;
+    const limit = sparams.limit || 5;
 
     const params = new URLSearchParams();
     if (category) {
@@ -15,8 +18,21 @@ const BrowseLawyers = async ({ searchParams }) => {
     if (search) {
         params.set("search", search);
     }
+    if (page) {
+        params.set("page", page);
+    }
+    if (limit) {
+        params.set("limit", limit);
+    }
 
     const allLawyers = await allService(params);
+    const { skip, total_data, data, total_page } = allLawyers;
+
+    const pages = [];
+    for (let i = 1; i <= total_page; i++) {
+        pages.push(i);
+    }
+    console.log(pages);
 
     return (
         <>
@@ -47,15 +63,54 @@ const BrowseLawyers = async ({ searchParams }) => {
                         </p>
                     </div>
                     <div className="">
-                        {/* {allLawyers.map((lawyer) => (
-                            <LawyerCard
-                                lawyer={lawyer}
-                                key={lawyer?._id}
-                            ></LawyerCard>
-                        ))} */}
-                        <ServiceCard services={allLawyers}></ServiceCard>
+                        <ServiceCard data={data}></ServiceCard>
                     </div>
                 </section>
+                <Table.Footer>
+                    <Pagination size="sm">
+                        <Pagination.Summary></Pagination.Summary>
+                        <Pagination.Content className="text-center">
+                            <Pagination.Item>
+                                <Pagination.Previous isDisabled={page == 1}>
+                                    <Link className="flex items-center"
+                                        href={`/browse-lawyers?page=${Number(page) - 1}`}
+                                    >
+                                        <Pagination.PreviousIcon />
+                                        Prev
+                                    </Link>
+                                </Pagination.Previous>
+                            </Pagination.Item>
+                            {pages.map((p) => (
+                                <Link
+                                    key={p}
+                                    href={`/browse-lawyers?page=${p}`}
+                                >
+                                    <Pagination.Item>
+                                        <Pagination.Link
+                                            isActive={p === Number(page)}
+                                            className={`${p === Number(page) && "bg-red-400 text-white"}`}
+                                        >
+                                            {p}
+                                        </Pagination.Link>
+                                    </Pagination.Item>
+                                </Link>
+                            ))}
+                            <Pagination.Item>
+                                <Pagination.Next
+                                    isDisabled={page == total_page}
+                                >
+                                    <Link
+                                        href={`/browse-lawyers?page=${Number(page) + 1}`}
+                                        className="flex items-center"
+                                    >
+                                        Next
+                                        <Pagination.NextIcon  />
+                                    </Link>
+                                </Pagination.Next>
+                            </Pagination.Item>
+                        </Pagination.Content>
+                    </Pagination>
+                </Table.Footer>
             </div>
         </>
     );

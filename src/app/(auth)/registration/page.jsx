@@ -23,9 +23,6 @@ export default function RegisterPage() {
     const [chkpassword, setChkPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
-    const { data: session, isPending } = useSession();
-    const user = session?.user;
-    console.log(user);
 
     const {
         register,
@@ -53,11 +50,13 @@ export default function RegisterPage() {
             console.log(data);
             if (registerData) {
                 toast.success("Welcome! Your account has been created.");
-                if (user?.role == "client") {
+                if (registerData?.user?.role === "client") {
                     router.push("/browse-lawyers");
                     return;
                 } else {
-                    router.push(`/dashboard/${user?.role}/profile`);
+                    router.push(
+                        `/dashboard/${registerData?.user?.role}/profile`,
+                    );
                 }
                 return;
             }

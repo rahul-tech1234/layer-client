@@ -1,8 +1,11 @@
 "use client";
+import { addCmt } from "@/lib/api/client/action";
+import { getCmt } from "@/lib/api/client/data";
 import { hireingStatus } from "@/lib/api/lawyer/action";
+import { useSession } from "@/lib/auth-client";
 import { Avatar, Button, Card, Chip } from "@heroui/react";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     FaArrowRight,
     FaCalendarAlt,
@@ -13,9 +16,13 @@ import {
 } from "react-icons/fa";
 
 export default function ServiceDetails({ service, user }) {
-    // console.log("service", service);
+    //console.log("service", service);
+    const id = service?._id;
+    const { data: session } = useSession();
+    const email = session?.user?.email;
 
     const [hire, setHire] = useState(false);
+    const [comment, setComment] = useState(false);
     const handleClintBook = async () => {
         const paymentData = {
             type: "hire",
@@ -34,10 +41,22 @@ export default function ServiceDetails({ service, user }) {
             consultationFee: service.conFee,
         };
         const res = await hireingStatus(paymentData);
+        return setHire(true);
         console.log(res);
-       
     };
 
+    
+
+    const handleCmt = async (e) => {
+        e.preventDefault();
+        const cmt = e.target.cmt.value;
+        const data = {
+            cmt,
+            clientEmail: email,
+        };
+        const res = await addCmt(id, data);
+        console.log(res);
+    };
     return (
         <section className="max-w-7xl mx-auto px-5 py-10">
             {/* Hero */}
@@ -130,15 +149,36 @@ export default function ServiceDetails({ service, user }) {
                                 <h3 className="text-xl font-semibold">
                                     About this Service
                                 </h3>
-                                {user?.role == "client" && (
+                                {user?.role === "client" && !hire && (
                                     <Button
+                                        className="rounded-sm"
                                         onClick={handleClintBook}
-                                        className="rounded-sm w-20"
-                                        isDisabled={service?.status != "active"}
                                     >
                                         Hire
                                     </Button>
                                 )}
+
+                                {/* <div className="rounded-3xl border border-default-200 bg-content1 p-6 shadow-md">
+                                    <h2 className="text-2xl font-bold text-foreground">
+                                        Leave a Comment
+                                    </h2>
+
+                                    <p className="mt-2 mb-5 text-default-500">
+                                        Share your experience with this lawyer.
+                                    </p>
+
+                                    <textarea
+                                        rows={6}
+                                        placeholder="Write your comment here..."
+                                        className="w-full rounded-2xl border border-default-200 bg-transparent p-4 text-foreground outline-none transition-all duration-300 placeholder:text-default-400 focus:border-primary"
+                                    />
+
+                                    <div className="mt-5 flex justify-end">
+                                        <button className="rounded-full bg-primary px-6 py-2 font-medium text-white transition hover:opacity-90">
+                                            Submit Comment
+                                        </button>
+                                    </div>
+                                </div> */}
                             </div>
 
                             <p className="mt-4 leading-8 text-default-600">
@@ -162,58 +202,52 @@ export default function ServiceDetails({ service, user }) {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.3 }}
                 >
-                    <Card className="sticky top-24 rounded-[28px] border border-default-200">
-                        <div className="p-8 text-center">
-                            <Avatar
-                                size="lg"
-                                src={user?.image}
-                                name="OH"
-                                className="mx-auto bg-primary text-white"
-                            />
+                    {comment ? (
+                        <>
+                            <Card className="sticky top-24 rounded-[28px] border border-default-200">
+                                <div className="rounded-3xl border border-default-200 bg-content1 p-6 shadow-md">
+                                    <h2 className="text-2xl font-bold text-foreground">
+                                        Leave a Comment
+                                    </h2>
 
-                            <h2 className="mt-5 text-2xl font-bold">
-                                {service?.title}
-                            </h2>
+                                    <p className="mt-2 mb-5 text-default-500">
+                                        Share your experience with this lawyer.
+                                    </p>
+                                    <form action="" onSubmit={handleCmt}>
+                                        <div>
+                                            <textarea
+                                                name="cmt"
+                                                rows={6}
+                                                placeholder="Write your comment here..."
+                                                className="w-full rounded-2xl border border-default-200 bg-transparent p-4 text-foreground outline-none transition-all duration-300 placeholder:text-default-400 focus:border-primary"
+                                            />
 
-                            <p className="text-default-500">
-                                {service.category}
-                            </p>
-
-                            <div className="my-6 h-px bg-default-200" />
-
-                            <div className="space-y-5">
-                                <div className="flex items-center gap-3">
-                                    <FaUserTie className="text-primary" />
-
-                                    <span>10+ Years Experience</span>
+                                            <div className="mt-5 flex justify-end">
+                                                <button
+                                                    type="submit"
+                                                    className="rounded-full bg-primary px-6 py-2 font-medium text-white transition hover:opacity-90"
+                                                >
+                                                    Submit Comment
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-
-                                <div className="flex items-center gap-3">
-                                    <FaEnvelope className="text-primary" />
-
-                                    <span className="break-all">
-                                        {service.lawyerEmail}
-                                    </span>
-                                </div>
-
-                                <div className="flex items-center gap-3">
-                                    <FaMapMarkerAlt className="text-primary" />
-
-                                    <span>{service.location}</span>
-                                </div>
+                            </Card>
+                        </>
+                    ) : (
+                        <>
+                            <div className="relative">
+                                {" "}
+                                <Button
+                                    onClick={() => setComment(!comment)}
+                                    className="absolute top-50 left-50"
+                                >
+                                    Comment
+                                </Button>
                             </div>
-
-                            <Button
-                                color="primary"
-                                onClick={handleClintBook}
-                                radius="full"
-                                className="mt-8 w-full font-semibold"
-                                endContent={<FaArrowRight />}
-                            >
-                                Contact Lawyer
-                            </Button>
-                        </div>
-                    </Card>
+                        </>
+                    )}
                 </motion.div>
             </div>
         </section>

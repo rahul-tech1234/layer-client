@@ -32,9 +32,9 @@ import { PayModal } from "./PayModal";
 
 export default function ClientHiringHistoryTable({ hiringHistory }) {
     return (
-        <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow">
+        <div className="overflow-x-auto rounded-xl border border-gray-200  shadow">
             <table className="min-w-full">
-                <thead className="bg-gray-100">
+                <thead className="">
                     <tr>
                         <th className="px-6 py-4 text-left text-sm font-semibold">
                             Lawyer Email

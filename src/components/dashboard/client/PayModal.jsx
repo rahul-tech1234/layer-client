@@ -1,16 +1,27 @@
-
-
 "use client";
-
 
 import { Button, Modal } from "@heroui/react";
 import Image from "next/image";
-import {  FaEnvelope, FaArrowRight ,FaDollarSign, FaUserTie } from "react-icons/fa";
+import { useState } from "react";
+import {
+    FaEnvelope,
+    FaArrowRight,
+    FaDollarSign,
+    FaUserTie,
+} from "react-icons/fa";
 
 export function PayModal({ hire }) {
-    const handlePayment=async()=>{
+    
+    
+    const handlePayment = async () => {
         const paymentData = {
             type: "hire",
+            consultationFee: hire?.consultationFee,
+            serviceTitle: hire?.serviceTitle,
+            clientEmail: hire?.clientEmail,
+            clientId: hire?.clientId,
+            lowyerEmail: hire.serviceEmail,
+            serviceId: hire?.serviceId,
         };
 
         const res = await fetch("/api/checkout_sessions", {
@@ -21,11 +32,15 @@ export function PayModal({ hire }) {
             body: JSON.stringify(paymentData),
         });
         const data = await res.json();
+        console.log("metaData", data);
+        console.log("transactionId", data.transactionId);
+       
         if (data?.url) {
             window.location.href = data.url;
         }
         console.log("url", data);
-    }
+    };
+      console.log(isPay, "after");
     return (
         <Modal>
             <Button variant="secondary">Pay Now</Button>
@@ -83,10 +98,11 @@ export function PayModal({ hire }) {
                                     color="primary"
                                     onClick={handlePayment}
                                     radius="full"
+                                    
                                     className="mt-8 w-full font-semibold"
                                     endContent={<FaArrowRight />}
                                 >
-                                    Pay
+                                    pay
                                 </Button>
                             </div>
                         </Modal.Body>

@@ -1,15 +1,15 @@
 "use client";
 
 import {
+    getHireingStatus,
     hireingStatusUpdateAccpted,
     hireingStatusUpdateRejectes,
 } from "@/lib/api/lawyer/action";
 import { Chip, Button } from "@heroui/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-
 export default function HiringHistoryTable({ hirings }) {
-    const [state, setState] = useState("pending");
-    //console.log(hirings);
+    const router = useRouter();
     const handleStatusAccept = async (id) => {
         //console.log("-id", id);
         const data = {
@@ -17,7 +17,11 @@ export default function HiringHistoryTable({ hirings }) {
             paymentStatus: "paid",
         };
         const res = await hireingStatusUpdateAccpted(id, data);
-        console.log(res);
+        if (res.modifiedCount > 0) {
+            console.log("Refetching...");
+            router.refresh();
+        }
+        c0nsole.log(res);
     };
     const handleStatusReject = async (id) => {
         //console.log("-id", id);
@@ -26,9 +30,14 @@ export default function HiringHistoryTable({ hirings }) {
             paymentStatus: "cancel",
         };
         const res = await hireingStatusUpdateAccpted(id, data);
-        console.log(res);
+        if (res.modifiedCount > 0) {
+            console.log("Refetching...");
+            router.refresh();
+        }
+        // console.log(res);
     };
-
+    // const isDisabled = state === "accepted" || state === "rejected";
+    // console.log(state);
     return (
         <div className="rounded-2xl border border-default-200 bg-background p-6">
             <h2 className="mb-6 text-2xl font-bold">Hiring History</h2>
@@ -47,6 +56,7 @@ export default function HiringHistoryTable({ hirings }) {
 
                 <tbody>
                     {hirings.map((item, index) => {
+                        //console.log(item?.status, "item");
                         const id = item?._id;
                         const formattedDate = new Date(
                             item.hiringDate,
@@ -67,19 +77,15 @@ export default function HiringHistoryTable({ hirings }) {
                                 <td className="p-3">
                                     <Chip
                                         color={
-                                            state === "accepted"
+                                            item?.status === "accepted"
                                                 ? "success"
-                                                : state === "rejected"
+                                                : item?.status === "rejected"
                                                   ? "danger"
                                                   : "warning"
                                         }
                                         className="text-[16px]"
                                     >
-                                        {state === "accepted"
-                                            ? "Accept"
-                                            : state == "rejected"
-                                              ? "Reject"
-                                              : "Pending"}
+                                        {item?.status}
                                     </Chip>
                                 </td>
                                 <td className="p-3">
@@ -89,6 +95,9 @@ export default function HiringHistoryTable({ hirings }) {
                                             size="sm"
                                             variant="light"
                                             className="rounded-md"
+                                            isDisabled={
+                                                item?.status !== "pending"
+                                            }
                                         >
                                             <Chip
                                                 color="success"
@@ -103,6 +112,9 @@ export default function HiringHistoryTable({ hirings }) {
                                         <Button
                                             isIconOnly
                                             size="sm"
+                                            isDisabled={
+                                                item?.status !== "pending"
+                                            }
                                             variant="light"
                                         >
                                             <Chip

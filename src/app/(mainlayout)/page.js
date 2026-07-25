@@ -56,7 +56,7 @@ export default function HomePage() {
     return (
         <div className="space-y-5">
             <Hero />
-            <ServiceCard services={services} />
+            <ServiceCard data={services} />
             <TopLegalExperts />
         </div>
     );
