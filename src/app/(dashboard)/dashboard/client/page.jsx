@@ -7,7 +7,7 @@ const page = async () => {
     const email = user?.user?.email;
     //console.log(user?.user?.email);
     const cmt = await getMyAllcmt(email);
-    console.log("cmt:", cmt);
+   // console.log("cmt:", cmt);
     return (
         <div>
             <DashboardHeading

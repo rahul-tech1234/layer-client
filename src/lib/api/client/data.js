@@ -15,3 +15,8 @@ export const getMyAllcmt = async (email) => {
     const data = await res.json();
     return data;
 };
+export const findUserProfile=async (id)=>{
+    const user=await fetch(`${baseUrl}api/user/${id}`);
+    const data=await user.json();
+    return data;
+} 

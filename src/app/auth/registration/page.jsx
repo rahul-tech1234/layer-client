@@ -1,6 +1,6 @@
 "use client";
 
-import { authClient, useSession } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -29,7 +29,7 @@ export default function RegisterPage() {
         handleSubmit,
         formState: { errors },
     } = useForm();
-    console.log(errors);
+    //console.log(errors);
     const handleSignUp = async (data) => {
         const photo = data?.image[0];
         const userPro = await uploadImage(photo);
@@ -47,7 +47,7 @@ export default function RegisterPage() {
                     ...data,
                     image: userPro,
                 });
-            console.log(data);
+           // console.log(data);
             if (registerData) {
                 toast.success("Welcome! Your account has been created.");
                 if (registerData?.user?.role === "client") {
@@ -66,12 +66,6 @@ export default function RegisterPage() {
                         "Registration failed. Please try again.",
                 );
             }
-            // console.log(
-            //     registerData,
-            //     "registerData",
-            //     registerError,
-            //     "registerError",
-            // );
         } catch (error) {
             console.log(error);
         } finally {
@@ -79,40 +73,6 @@ export default function RegisterPage() {
         }
     };
 
-    //     const { name, value, type, checked } = e.target;
-
-    //     setForm({
-    //         ...form,
-    //         [name]: type === "checkbox" ? checked : value,
-    //     });
-    // };
-
-    // const handleImage = (e) => {
-    //     const file = e.target.files[0];
-
-    //     if (file) {
-    //         setForm({
-    //             ...form,
-    //             image: file,
-    //         });
-
-    //         setPreview(URL.createObjectURL(file));
-    //     }
-    // };
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-
-    //     setLoading(true);
-
-    //     setTimeout(() => {
-    //         console.log("Mock Register Data", form);
-
-    //         alert("Registration Successful!");
-
-    //         setLoading(false);
-    //     }, 2000);
-    // };
     if (isPending) {
         return <h1>Loading...</h1>;
     }

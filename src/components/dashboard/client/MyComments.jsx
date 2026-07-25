@@ -2,16 +2,13 @@
 
 import { cmtDelete } from "@/lib/api/client/action";
 import toast from "react-hot-toast";
+import { EditCommentModal } from "./CmtModal";
 
 export default function MyComments({ comments }) {
-    const handleEdit = async (id) => {
-        const cmt = await cmtEdit(id);
-    };
-
     const handleDelete = async (id) => {
-        console.log(id, "del");
+        // console.log(id, "del");
         const cmt = await cmtDelete(id);
-        console.log("cmt:", cmt);
+        //console.log("cmt:", cmt);
         if (cmt?.modifiedCount > 0) {
             toast.success("Delete comment success");
         }
@@ -56,12 +53,9 @@ export default function MyComments({ comments }) {
                             </span>
 
                             <div className="flex gap-3">
-                                <button
-                                    onClick={() => handleEdit(comment)}
-                                    className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700"
-                                >
-                                    Edit
-                                </button>
+                                <span>
+                                    <EditCommentModal comment={comment} />
+                                </span>
 
                                 <button
                                     onClick={() => handleDelete(comment?._id)}
