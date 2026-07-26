@@ -2,7 +2,6 @@ import { baseUrl } from "@/lib/api/baseUrl";
 import { stripe } from "@/lib/stripe";
 import PaymentSuccess from "./PyamentSuccess";
 
-
 const PaymentSuccessPage = async ({ searchParams }) => {
     const { session_id } = await searchParams;
     if (!session_id)
@@ -14,27 +13,27 @@ const PaymentSuccessPage = async ({ searchParams }) => {
     //console.log("session metadata", session);
 
     const paymentData = {
-        consultationFee: session?.metadata?.consultationFee,
-        clientEmail: session?.metadata?.clientEmail,
+        //consultationFee: session?.metadata?.consultationFee,
+        //clientEmail: session?.metadata?.clientEmail,
         serviceId: session?.metadata?.serviceId,
-        serviceEmail: session?.metadata?.serviceEmail,
-        serviceTitle: session?.metadata?.serviceTitle,
-        clientId: session?.metadata?.clientId,
+        //serviceEmail: session?.metadata?.serviceEmail,
+        //serviceTitle: session?.metadata?.serviceTitle,
+        //clientId: session?.metadata?.clientId,
         paymentType: session?.metadata?.type,
         transactionId: session?.payment_intent?.id,
         paymentStatus: session?.payment_status,
     };
     // console.log("meta", paymentData);
-    const res = await fetch(`${baseUrl}api/hirings`, {
-        method: "POST",
+    const res = await fetch(`${baseUrl}api/hirings/payment-success`, {
+        method: "PATCH",
         headers: {
             "content-type": "application/json",
         },
         body: JSON.stringify(paymentData),
     });
     const data = await res.json();
-    //console.log(data);
-  
+    console.log(data);
+
     return (
         <div>
             <PaymentSuccess></PaymentSuccess>
@@ -43,3 +42,5 @@ const PaymentSuccessPage = async ({ searchParams }) => {
 };
 
 export default PaymentSuccessPage;
+
+//const sessionId = searchParams.get("session_id");

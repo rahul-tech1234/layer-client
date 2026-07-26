@@ -30,11 +30,11 @@ export const hireingStatus = async (data) => {
     console.log(res);
     return await res;
 };
-export const getHireingStatus=async()=>{
-    const res=await fetch(`/api/hirings/status/accept/${id}`);
-    const data=await await res.json();
+export const getHireingStatus = async () => {
+    const res = await fetch(`/api/hirings/status/accept/${id}`);
+    const data = await await res.json();
     return data;
-}
+};
 export const hireingStatusUpdateAccpted = async (id, data) => {
     const res = await serverMutation(`api/hirings/accept/${id}`, "PATCH", data);
     return await res;

@@ -8,10 +8,16 @@ export const getUser = async () => {
     });
     return session;
 };
+export const user = async () => {
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+    return session?.user;
+};
 export const roleValidation = async (role) => {
-    const user = getUser();
-    const logInUser = user?.user;
-    if (!logInUser || logInUser !== role) {
-        return redirect("/Unauthorized");
+    const logInUser = await user();
+    if (!logInUser || logInUser?.role !== role) {
+        return redirect("/auth/login");
     }
+    return logInUser;
 };

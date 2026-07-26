@@ -39,12 +39,12 @@ const LawyerProfile = () => {
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const { data: session } = useSession();
+    const { data: session, isPending } = useSession();
     const user = session?.user;
     const email = user?.email;
 
     const [myPro, setMyPro] = useState(null);
-   
+
     const [loading, setLoading] = useState(true);
     //  const [isPro, setIsPro] = useState(false);
     useEffect(() => {
@@ -56,6 +56,12 @@ const LawyerProfile = () => {
 
         setProData();
     }, [email]);
+    if (isPending) {
+        return <span>Loading</span>;
+    }
+    if (!user && user?.role !== "lawyer") {
+        redirect("/auth/login");
+    }
 
     const handleMyProfile = async (data) => {
         const image = data.profile[0];
@@ -69,7 +75,7 @@ const LawyerProfile = () => {
 
         if (!myPro) {
             const creatProfile = await creatLawPro(profileData);
-           
+
             setLoading(false);
 
             if (creatProfile?.insertedId) {

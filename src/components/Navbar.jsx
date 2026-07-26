@@ -120,10 +120,7 @@ export function Navbar({ searchParams }) {
                                 >
                                     <Avatar.Image
                                         alt={user?.name || "User"}
-                                        src={
-                                            user?.image ||
-                                            "https://img.heroui.chat/image/avatar?w=400&h=400&u=3"
-                                        }
+                                        src={user?.image}
                                     />
                                     <Avatar.Fallback>
                                         {user?.name?.charAt(0).toUpperCase()}

@@ -92,74 +92,73 @@ export default function ServiceDetails({ service, user, cmt }) {
             {/* Main */}
             <div className="grid gap-8 lg:grid-cols-3 mt-10">
                 {/* Left */}
-                {role === "client" && (
-                    <motion.div
-                        initial={{ opacity: 0, x: -40 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="lg:col-span-2 space-y-6"
-                    >
-                        <Card className="rounded-[28px] border border-default-200">
-                            <div className="p-8">
-                                <h2 className="text-2xl font-bold mb-8">
-                                    Service Information
-                                </h2>
+                <motion.div
+                    initial={{ opacity: 0, x: -40 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="lg:col-span-2 space-y-6"
+                >
+                    <Card className="rounded-[28px] border border-default-200">
+                        <div className="p-8">
+                            <h2 className="text-2xl font-bold mb-8">
+                                Service Information
+                            </h2>
 
-                                <div className="grid sm:grid-cols-2 gap-5">
-                                    <InfoBox
-                                        icon={<FaShieldAlt />}
-                                        title="Category"
-                                        value={service.category}
-                                    />
+                            <div className="grid sm:grid-cols-2 gap-5">
+                                <InfoBox
+                                    icon={<FaShieldAlt />}
+                                    title="Category"
+                                    value={service.category}
+                                />
 
-                                    <InfoBox
-                                        icon={<FaCalendarAlt />}
-                                        title="Added Date"
-                                        value={service.addDate}
-                                    />
+                                <InfoBox
+                                    icon={<FaCalendarAlt />}
+                                    title="Added Date"
+                                    value={service.addDate}
+                                />
 
-                                    <InfoBox
-                                        icon={<FaMapMarkerAlt />}
-                                        title="Location"
-                                        value={service.location}
-                                    />
+                                <InfoBox
+                                    icon={<FaMapMarkerAlt />}
+                                    title="Location"
+                                    value={service.location}
+                                />
 
-                                    <div className="rounded-2xl border border-success-300 bg-success-50 p-5">
-                                        <p className="text-sm text-default-500">
-                                            Status
-                                        </p>
+                                <div className="rounded-2xl border border-success-300 bg-success-50 p-5">
+                                    <p className="text-sm text-default-500">
+                                        Status
+                                    </p>
 
-                                        <Chip
-                                            color={
-                                                service?.status === "active"
-                                                    ? " success"
-                                                    : "danger"
-                                            }
-                                            className="mt-3"
-                                        >
-                                            {service.status == "active"
-                                                ? "🟢Active"
-                                                : "🔴 Busy"}
-                                        </Chip>
-                                    </div>
+                                    <Chip
+                                        color={
+                                            service?.status === "active"
+                                                ? " success"
+                                                : "danger"
+                                        }
+                                        className="mt-3"
+                                    >
+                                        {service.status == "active"
+                                            ? "🟢Active"
+                                            : "🔴 Busy"}
+                                    </Chip>
                                 </div>
+                            </div>
 
-                                <div className="my-8 h-px bg-default-200" />
+                            <div className="my-8 h-px bg-default-200" />
 
-                                <div className="flex justify-between items-center ">
-                                    <h3 className="text-xl font-semibold">
-                                        About this Service
-                                    </h3>
-                                    {user?.role === "client" && !hire && (
-                                        <Button
-                                            className="rounded-sm"
-                                            onClick={handleClintBook}
-                                        >
-                                            Hire
-                                        </Button>
-                                    )}
+                            <div className="flex justify-between items-center ">
+                                <h3 className="text-xl font-semibold">
+                                    About this Service
+                                </h3>
+                                {user?.role === "client" && !hire && (
+                                    <Button
+                                        className="rounded-sm"
+                                        onClick={handleClintBook}
+                                    >
+                                        Hire
+                                    </Button>
+                                )}
 
-                                    {/* <div className="rounded-3xl border border-default-200 bg-content1 p-6 shadow-md">
+                                {/* <div className="rounded-3xl border border-default-200 bg-content1 p-6 shadow-md">
                                     <h2 className="text-2xl font-bold text-foreground">
                                         Leave a Comment
                                     </h2>
@@ -180,11 +179,11 @@ export default function ServiceDetails({ service, user, cmt }) {
                                         </button>
                                     </div>
                                 </div> */}
-                                </div>
+                            </div>
 
-                                <p className="mt-4 leading-8 text-default-600">
-                                    {service?.des ||
-                                        `Cyber Security Legal Service provides legal
+                            <p className="mt-4 leading-8 text-default-600">
+                                {service?.des ||
+                                    `Cyber Security Legal Service provides legal
                                 assistance related to cyber crime
                                 investigations, online fraud, digital evidence,
                                 cyber security compliance, privacy, and
@@ -192,11 +191,10 @@ export default function ServiceDetails({ service, user, cmt }) {
                                 individuals, startups, and businesses to resolve
                                 cyber-related legal issues professionally and
                                 confidentially.`}
-                                </p>
-                            </div>
-                        </Card>
-                    </motion.div>
-                )}
+                            </p>
+                        </div>
+                    </Card>
+                </motion.div>
 
                 {/* Right */}
                 <motion.div
@@ -204,40 +202,45 @@ export default function ServiceDetails({ service, user, cmt }) {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: 0.3 }}
                 >
-                    <Card className="sticky top-24 rounded-[28px] border border-default-200">
-                        <div className="rounded-3xl border border-default-200 bg-content1 p-6 shadow-md">
-                            <h2 className="text-2xl font-bold text-foreground">
-                                Leave a Comment
-                            </h2>
+                    {role === "client" && (
+                        <>
+                            {" "}
+                            <Card className="sticky top-24 rounded-[28px] border border-default-200">
+                                <div className="rounded-3xl border border-default-200 bg-content1 p-6 shadow-md">
+                                    <h2 className="text-2xl font-bold text-foreground">
+                                        Leave a Comment
+                                    </h2>
 
-                            <p className="mt-2 mb-5 text-default-500">
-                                Share your experience with this lawyer.
-                            </p>
-                            <form action="" onSubmit={handleCmt}>
-                                <div>
-                                    <textarea
-                                        name="cmt"
-                                        rows={6}
-                                        placeholder="Write your comment here..."
-                                        className="w-full rounded-2xl border border-default-200 bg-transparent p-4 text-foreground outline-none transition-all duration-300 placeholder:text-default-400 focus:border-primary"
-                                    />
+                                    <p className="mt-2 mb-5 text-default-500">
+                                        Share your experience with this lawyer.
+                                    </p>
+                                    <form action="" onSubmit={handleCmt}>
+                                        <div>
+                                            <textarea
+                                                name="cmt"
+                                                rows={6}
+                                                placeholder="Write your comment here..."
+                                                className="w-full rounded-2xl border border-default-200 bg-transparent p-4 text-foreground outline-none transition-all duration-300 placeholder:text-default-400 focus:border-primary"
+                                            />
 
-                                    <div className="mt-5 flex justify-end">
-                                        <button
-                                            type="submit"
-                                            className="rounded-full bg-primary px-6 py-2 font-medium text-white transition hover:opacity-90"
-                                        >
-                                            Submit Comment
-                                        </button>
-                                    </div>
+                                            <div className="mt-5 flex justify-end">
+                                                <button
+                                                    type="submit"
+                                                    className="rounded-full bg-primary px-6 py-2 font-medium text-white transition hover:opacity-90"
+                                                >
+                                                    Submit Comment
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
-                        </div>
-                    </Card>
-                    <Card>
-                        <h2>Your Comment</h2>
-                        <p className="text-muted">{cmt?.cmt}</p>
-                    </Card>
+                            </Card>
+                            <Card>
+                                <h2>Your Comment</h2>
+                                <p className="text-muted">{cmt?.cmt}</p>
+                            </Card>
+                        </>
+                    )}
                 </motion.div>
             </div>
         </section>

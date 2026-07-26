@@ -1,19 +1,24 @@
 import ClientHiringHistoryTable from "@/components/dashboard/client/ClientHiringHistoryTable";
+import DashboardHeading from "@/components/dashboard/DashboardHeading";
 import { ClienthireHistory } from "@/lib/api/client/data";
-
-import { getUser } from "@/lib/api/session";
+import { roleValidation, user } from "@/lib/api/session";
 
 const HiringHistory = async () => {
-    const { user, isPending } = await getUser();
-    const userEmail = user?.email;
-    // console.log("userEmail", userEmail);
+    const isUser = await user();
+
+    const userEmail = isUser?.email;
+
     const clientHire = await ClienthireHistory(userEmail);
 
-    if (isPending) {
-        return <span>Loading</span>;
-    }
+    await roleValidation("client");
+    console.log(roleValidation("client"));
+
     return (
         <div>
+            <DashboardHeading
+                title={"My Lawyer Requests"}
+                des={"After lawyer accept this pay button show"}
+            ></DashboardHeading>
             <ClientHiringHistoryTable const hiringHistory={clientHire} />
         </div>
     );

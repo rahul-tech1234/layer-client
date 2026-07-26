@@ -1,10 +1,9 @@
 "use client";
 
-import { updateLawyerStatus } from "@/lib/api/client/action";
-import { hireingStatusUpdateAccpted } from "@/lib/api/lawyer/action";
+
 import { Button, Modal } from "@heroui/react";
 import Image from "next/image";
-import { useState } from "react";
+
 import {
     FaEnvelope,
     FaArrowRight,
@@ -32,32 +31,15 @@ export function PayModal({ hire }) {
             body: JSON.stringify(paymentData),
         });
 
-        const updatestatus = {
-            status: "busy",
-        };
-        //  const uddateLawyer=await updateLawyerStatus( hire?.serviceId,updatestatus)
         const data = await res.json();
         console.log("metaData", data);
         console.log("transactionId", data.transactionId);
-        //update lawyer status and hire paymentStatus 
-        // if (data) {
-        //     const statusData = {
-        //         paymentStatus: "paid",
-        //     };
-        //     const payStatus = await hireingStatusUpdateAccpted(
-        //         paymentData?.serviceId,
-        //         ...statusData,
-        //     );
-        //     const lawyerStatus = await updateLawyerStatus(
-        //         paymentData?.serviceId,
-        //         updatestatus,
-        //     );
-        //     console.log(payStatus);
+        //update lawyer status and hire paymentStatus
 
-        //     return;
-        // }
         if (data?.url) {
             window.location.href = data.url;
+
+            return;
         }
         console.log("url", data);
     };

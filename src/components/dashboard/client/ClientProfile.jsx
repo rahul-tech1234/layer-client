@@ -6,6 +6,7 @@ import { Button, Input } from "@heroui/react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import DashboardHeading from "../DashboardHeading";
 
 const UpdateProfileForm = () => {
     const { data: session, isPending } = useSession();
@@ -36,7 +37,10 @@ const UpdateProfileForm = () => {
 
     return (
         <div className="h-screen flex flex-col items-center justify-center">
-            {" "}
+            <DashboardHeading
+                title={"Update Profile"}
+                des={"change user name and image "}
+            ></DashboardHeading>{" "}
             <div className="mx-auto max-w-2xl rounded-3xl border border-default-200 bg-content1 p-8 shadow-medium ">
                 <div className="mb-8">
                     <h2 className="text-3xl font-bold text-foreground">

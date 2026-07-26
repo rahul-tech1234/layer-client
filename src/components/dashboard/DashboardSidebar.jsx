@@ -70,7 +70,7 @@ export default function DashboardSidebar() {
         {
             name: "Hiring History ",
             icon: FaCalendarAlt,
-            href: "/dashboard/client/hiring-history ",
+            href: "/dashboard/client/hiring-history",
         },
         {
             name: "Update Profile",
@@ -80,7 +80,7 @@ export default function DashboardSidebar() {
         {
             name: "Comments",
             icon: FaUserTie,
-            href: "/dashboard/client/comments",
+            href: "/dashboard/client",
         },
     ];
     const AdminMenus = [

@@ -1,16 +1,25 @@
 import LawyerDetails from "@/components/LawyerDetails";
 import { getCmt } from "@/lib/api/client/data";
 import { LawyerServiceDetails } from "@/lib/api/lawyer/data";
-import { getUser } from "@/lib/api/session";
+import { user } from "@/lib/api/session";
+
+import { redirect } from "next/navigation";
 
 const Details = async ({ params }) => {
-    const user = await getUser();
-    console.log(user);
+    const isUser = await user();
+    //  const user = session?.user;
+    console.log("isUser:", isUser);
+    // if (isPending) {
+    //     return <span>Loadiing...</span>;
+    // }
+    if (!isUser) {
+        redirect("/auth/login");
+    }
+
     const { id } = await params;
-    //const serId = details?._id;
-    //const data = await getCmt(serId);
-    //console.log(data);
+
     const details = await LawyerServiceDetails(id);
+    console.log(`ID: ${id} Details ${details}`);
     const cmt = await getCmt(details?._id);
     //console.log("cmt page", cmt);
 
@@ -18,7 +27,7 @@ const Details = async ({ params }) => {
         <>
             <LawyerDetails
                 service={details}
-                user={user?.user}
+                user={isUser}
                 cmt={cmt}
             ></LawyerDetails>
         </>

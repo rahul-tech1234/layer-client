@@ -1,17 +1,18 @@
 import DashboardHeading from "@/components/dashboard/DashboardHeading";
 import HiringHistoryTable from "@/components/dashboard/HiringHistoryTable";
 import { hireHistory } from "@/lib/api/lawyer/data";
-import { getUser } from "@/lib/api/session";
+import { roleValidation, user } from "@/lib/api/session";
 
 const HiringHistry = async () => {
-    const { user, isPending } = await getUser();
-    const email = user?.email;
+    const isUser = await user();
+    console.log("isUser", isUser);
+
+    const email = isUser?.email;
 
     const data = await hireHistory(email);
     //console.log(data);
-    if (isPending) {
-        return <h1>Loading...</h1>;
-    }
+
+    await roleValidation("lawyer");
     return (
         <div className="">
             <DashboardHeading
