@@ -88,7 +88,7 @@ const AllTransiction = ({ transactions }) => {
                                 </td>
 
                                 <td className="px-6 py-4 text-gray-700">
-                                    {transaction.lawyerEmail}
+                                    {transaction.serviceEmail}
                                 </td>
 
                                 <td className="px-6 py-4 text-center">

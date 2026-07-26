@@ -95,7 +95,7 @@ export default function DashboardSidebar() {
             href: "/dashboard/admin/all-transactions ",
         },
         {
-            name: "Hiring History ",
+            name: "Analytics",
             icon: FaFolderOpen,
             href: "/dashboard/admin/analytics",
         },

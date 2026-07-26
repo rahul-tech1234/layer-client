@@ -5,10 +5,12 @@ export const allUser = async () => {
     const data = await users.json();
     return data;
 };
-export const allUserTransaction=async()=>{
-
-    const res=await fetch(`${baseUrl}api/all-transactions`);
-    const data=await res.json();
+export const allUserTransaction = async () => {
+    const res = await fetch(`${baseUrl}api/all-transactions`);
+    const data = await res.json();
     return data;
-}
-
+};
+export const getAnalytics = async () => {
+    const res = await fetch(`${baseUrl}api/admin/analytics`);
+    return await res.json();
+};

@@ -9,7 +9,7 @@ const page = async () => {
         <div>
             <DashboardHeading
                 title={"All Transaction"}
-                dec={"All transactionId user name email ect"}
+                des={"All transactionId user name email ect"}
             ></DashboardHeading>
             <AllTransiction transactions={usersTrans}/>
         </div>
