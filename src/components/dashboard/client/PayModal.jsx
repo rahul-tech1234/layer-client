@@ -1,6 +1,5 @@
 "use client";
 
-
 import { Button, Modal } from "@heroui/react";
 import Image from "next/image";
 
@@ -12,6 +11,7 @@ import {
 } from "react-icons/fa";
 
 export function PayModal({ hire }) {
+    console.log(hire, "hire");
     const handlePayment = async () => {
         const paymentData = {
             type: "hire",

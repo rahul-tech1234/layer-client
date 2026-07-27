@@ -1,5 +1,6 @@
 import MyComments from "@/components/dashboard/client/MyComments";
 import DashboardHeading from "@/components/dashboard/DashboardHeading";
+import EmptyState from "@/components/Empty-Page";
 import { getMyAllcmt } from "@/lib/api/client/data";
 import { user } from "@/lib/api/session";
 
@@ -15,7 +16,11 @@ const page = async () => {
                 title={"My Comments "}
                 des={"My all Commnets"}
             ></DashboardHeading>
-            <MyComments comments={cmt}></MyComments>
+            {cmt.length === 0 ? (
+                <EmptyState></EmptyState>
+            ) : (
+                <MyComments comments={cmt}></MyComments>
+            )}
         </div>
     );
 };

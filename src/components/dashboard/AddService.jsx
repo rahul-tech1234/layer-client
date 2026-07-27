@@ -46,7 +46,7 @@ const AddService = () => {
             toast.error(result?.message || "Event not created...");
         }
 
-        console.log("result", result);
+        //console.log("result", result);
     };
     const catagories = [
         "Criminal Law",

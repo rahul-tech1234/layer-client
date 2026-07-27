@@ -10,15 +10,7 @@ import {
     FaCalendarAlt,
 } from "react-icons/fa";
 
-export default function PremiumSuccess() {
-    // Replace these with your real payment data
-    const payment = {
-        lawyer: "John Anderson",
-        amount: 120,
-        status: "Paid",
-        date: new Date().toLocaleDateString(),
-    };
-
+export default function PremiumSuccess({ payment }) {
     return (
         <section className="min-h-screen bg-background flex items-center justify-center px-4 py-10">
             <Card className="w-full max-w-xl rounded-3xl border border-default-200 bg-background shadow-2xl">
@@ -123,23 +115,24 @@ export default function PremiumSuccess() {
 
                     {/* Buttons */}
                     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                        <Button
-                            as={Link}
-                            href="/dashboard/user/hiring-history"
-                            color="success"
-                            radius="full"
-                            className="flex-1 font-semibold"
-                            endContent={<FaArrowRight />}
-                        >
-                            Hiring History
-                        </Button>
+                        <Link href="/dashboard/lawyer/add-service">
+                            {" "}
+                            <Button
+                                color="success"
+                                radius="full"
+                                className="flex-1 font-semibold"
+                                endContent={<FaArrowRight />}
+                            >
+                                Add Service
+                            </Button>
+                        </Link>
 
                         <Button
                             as={Link}
                             href="/browse-lawyers"
                             variant="bordered"
                             radius="full"
-                            className="flex-1"  
+                            className="flex-1"
                         >
                             Browse Lawyers
                         </Button>

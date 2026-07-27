@@ -4,6 +4,33 @@ import { headers } from "next/headers";
 import { stripe } from "../../../lib/stripe";
 import { getUser } from "@/lib/api/session";
 
+export async function GET(req, { params }) {
+    const { sessionId } = params;
+    try {
+        const session = await stripe.checkout.sessions.retrieve(
+            params.sessionId,
+        );
+
+        return NextResponse.json(session.metadata);
+    } catch (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+}
+export async function PATCH(req, { params }) {
+    const { email } = params;
+
+    const result = await usersCollection.updateOne(
+        { email },
+        {
+            $set: {
+                isPremium: true,
+            },
+        },
+    );
+
+    return NextResponse.json(result);
+}
+
 export async function POST(req) {
     try {
         const headersList = await headers();

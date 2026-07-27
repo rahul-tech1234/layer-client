@@ -1,5 +1,6 @@
 import AnalyticsDashboard from "@/components/dashboard/admin/Anaticis";
 import DashboardHeading from "@/components/dashboard/DashboardHeading";
+import EmptyState from "@/components/Empty-Page";
 import { getAnalytics } from "@/lib/api/admin/data";
 
 const Analitics = async () => {
@@ -9,6 +10,11 @@ const Analitics = async () => {
         <div>
             <DashboardHeading title={"Overview"}></DashboardHeading>
             <AnalyticsDashboard analytics={analitics} />
+            {analitics.length === 0 ? (
+                <EmptyState></EmptyState>
+            ) : (
+                <AnalyticsDashboard analytics={analitics} />
+            )}
         </div>
     );
 };

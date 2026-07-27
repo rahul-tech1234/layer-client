@@ -10,14 +10,15 @@ import {
     FaCalendarAlt,
 } from "react-icons/fa";
 
-export default function PaymentSuccess() {
+export default function PaymentSuccess({ payment }) {
+    console.log(payment);
     // Replace these with your real payment data
-    const payment = {
-        lawyer: "John Anderson",
-        amount: 120,
-        status: "Paid",
-        date: new Date().toLocaleDateString(),
-    };
+    // const payment = {
+    //     lawyer: "John Anderson",
+    //     amount: 120,
+    //     status: "Paid",
+    //     date: new Date().toLocaleDateString(),
+    // };
 
     return (
         <section className="min-h-screen bg-background flex items-center justify-center px-4 py-10">

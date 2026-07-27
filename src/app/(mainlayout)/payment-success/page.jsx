@@ -10,6 +10,8 @@ const PaymentSuccessPage = async ({ searchParams }) => {
     const session = await stripe.checkout.sessions.retrieve(session_id, {
         expand: ["line_items", "payment_intent"],
     });
+    // console.log("session", session);
+    //console.log("session metadata", session.metadata);
     //console.log("session metadata", session);
 
     const paymentData = {
@@ -23,6 +25,15 @@ const PaymentSuccessPage = async ({ searchParams }) => {
         transactionId: session?.payment_intent?.id,
         paymentStatus: session?.payment_status,
     };
+    const metaData = session?.metadata;
+   // console.log("session", session);
+   // console.log("meta", metaData);
+    const payment = {
+        lawyer: metaData?.clientEmail,
+        amount: metaData?.consultationFee,
+        status: session?.payment_status,
+        date: new Date().toLocaleDateString(),
+    };
     // console.log("meta", paymentData);
     const res = await fetch(`${baseUrl}api/hirings/payment-success`, {
         method: "PATCH",
@@ -32,11 +43,11 @@ const PaymentSuccessPage = async ({ searchParams }) => {
         body: JSON.stringify(paymentData),
     });
     const data = await res.json();
-    console.log(data);
+    // console.log("data", data);
 
     return (
         <div>
-            <PaymentSuccess></PaymentSuccess>
+            <PaymentSuccess payment={payment}></PaymentSuccess>
         </div>
     );
 };

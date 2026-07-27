@@ -1,5 +1,6 @@
 import ClientHiringHistoryTable from "@/components/dashboard/client/ClientHiringHistoryTable";
 import DashboardHeading from "@/components/dashboard/DashboardHeading";
+import EmptyState from "@/components/Empty-Page";
 import { ClienthireHistory } from "@/lib/api/client/data";
 import { roleValidation, user } from "@/lib/api/session";
 
@@ -19,7 +20,11 @@ const HiringHistory = async () => {
                 title={"My Lawyer Requests"}
                 des={"After lawyer accept this pay button show"}
             ></DashboardHeading>
-            <ClientHiringHistoryTable const hiringHistory={clientHire} />
+            {clientHire.length === 0 ? (
+                <EmptyState></EmptyState>
+            ) : (
+                <ClientHiringHistoryTable hiringHistory={clientHire} />
+            )}
         </div>
     );
 };

@@ -1,5 +1,6 @@
 import DashboardHeading from "@/components/dashboard/DashboardHeading";
 import HiringHistoryTable from "@/components/dashboard/HiringHistoryTable";
+import EmptyState from "@/components/Empty-Page";
 import { hireHistory } from "@/lib/api/lawyer/data";
 import { roleValidation, user } from "@/lib/api/session";
 
@@ -21,7 +22,11 @@ const HiringHistry = async () => {
                     "View all clients who have hired your legal services in one place. Track hiring records, consultation fees, payment status, transaction details, and hiring dates to efficiently manage your legal engagements."
                 }
             ></DashboardHeading>
-            <HiringHistoryTable hirings={data} />
+            {data.length === 0 ? (
+                <EmptyState></EmptyState>
+            ) : (
+                <HiringHistoryTable hirings={data} />
+            )}
         </div>
     );
 };

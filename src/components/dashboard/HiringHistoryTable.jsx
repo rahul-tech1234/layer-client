@@ -3,21 +3,22 @@
 import {
     getHireingStatus,
     hireingStatusUpdateAccpted,
+    hireingStatusUpdateRejected,
     hireingStatusUpdateRejectes,
 } from "@/lib/api/lawyer/action";
 import { Chip, Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 export default function HiringHistoryTable({ hirings }) {
+    console.log("HiringHistoryTable", hirings);
     const router = useRouter();
     const handleStatusAccept = async (id) => {
-        //console.log("-id", id);
         const data = {
             status: "accepted",
             paymentStatus: "unpaid",
         };
         const res = await hireingStatusUpdateAccpted(id, data);
-    
+
         if (res.modifiedCount > 0) {
             console.log("Refetching...");
             router.refresh();
@@ -26,13 +27,13 @@ export default function HiringHistoryTable({ hirings }) {
     };
     const handleStatusReject = async (id) => {
         //console.log("-id", id);
-        
+
         const data = {
             status: "rejected",
             paymentStatus: "cancel",
         };
-        const res = await hireingStatusUpdateAccpted(id, data);
-        
+        const res = await hireingStatusUpdateRejected(id, data);
+
         if (res.modifiedCount > 0) {
             console.log("Refetching...");
             router.refresh();

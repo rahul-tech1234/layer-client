@@ -5,36 +5,37 @@ import { Button } from "@heroui/react";
 
 import { Star, Briefcase, ArrowRight, BadgeCheck } from "lucide-react";
 
-export default function TopLegalExperts() {
-    const lawyers = [
-        {
-            id: 1,
-            name: "John Anderson",
-            specialization: "Corporate Lawyer",
-            image: "https://i.pravatar.cc/300?img=11",
-            experience: "15+ Years",
-            hires: 245,
-            rating: 4.9,
-        },
-        {
-            id: 2,
-            name: "Emily Carter",
-            specialization: "Family Lawyer",
-            image: "https://i.pravatar.cc/300?img=32",
-            experience: "12+ Years",
-            hires: 198,
-            rating: 4.8,
-        },
-        {
-            id: 3,
-            name: "Michael Brown",
-            specialization: "Criminal Lawyer",
-            image: "https://i.pravatar.cc/300?img=68",
-            experience: "18+ Years",
-            hires: 310,
-            rating: 5.0,
-        },
-    ];
+export default function TopLegalExperts({ lawyers }) {
+    console.log(lawyers);
+    // const lawyers = [
+    //     {
+    //         id: 1,
+    //         name: "John Anderson",
+    //         specialization: "Corporate Lawyer",
+    //         image: "https://i.pravatar.cc/300?img=11",
+    //         experience: "15+ Years",
+    //         hires: 245,
+    //         rating: 4.9,
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "Emily Carter",
+    //         specialization: "Family Lawyer",
+    //         image: "https://i.pravatar.cc/300?img=32",
+    //         experience: "12+ Years",
+    //         hires: 198,
+    //         rating: 4.8,
+    //     },
+    //     {
+    //         id: 3,
+    //         name: "Michael Brown",
+    //         specialization: "Criminal Lawyer",
+    //         image: "https://i.pravatar.cc/300?img=68",
+    //         experience: "18+ Years",
+    //         hires: 310,
+    //         rating: 5.0,
+    //     },
+    // ];
 
     return (
         <>
@@ -61,9 +62,9 @@ export default function TopLegalExperts() {
                     {/* Cards */}
 
                     <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                        {lawyers.map((lawyer) => (
+                        {lawyers.map((lawyer, i) => (
                             <div
-                                key={lawyer.id}
+                                key={i}
                                 className=" rounded-3xl border border-zinc-800 bg-zinc-900 p-6 transition-all duration-300 hover:-translate-y-2 hover:border-yellow-500 hover:shadow-[0_15px_40px_rgba(234,179,8,0.2)]"
                             >
                                 <div className="group flex flex-col md:flex-row items-center justify-between gap-6">
@@ -72,7 +73,10 @@ export default function TopLegalExperts() {
                                         {/* Avatar */}
                                         <div className="relative">
                                             <Image
-                                                src={lawyer.image}
+                                                src={
+                                                    lawyer.image ||
+                                                    "https://i.pravatar.cc/300?img=11"
+                                                }
                                                 alt={lawyer.name}
                                                 width={90}
                                                 height={90}
@@ -93,7 +97,7 @@ export default function TopLegalExperts() {
                                     <div>
                                         <div className="flex justify-end items-center gap-3">
                                             <h3 className="text-[20px] font-bold text-white">
-                                                {lawyer.name}
+                                                {lawyer._id}
                                             </h3>
                                             <BadgeCheck
                                                 size={18}
@@ -101,17 +105,10 @@ export default function TopLegalExperts() {
                                             />
                                         </div>
                                         <p className="mt-1 text-yellow-400 font-medium flex justify-end">
-                                            {lawyer.specialization}
+                                            {lawyer.category}
                                         </p>
                                     </div>
-                                    {/* <Button
-                                    color="warning"
-                                    radius="full"
-                                    className="min-w-[180px] font-semibold text-black"
-                                    endContent={<ArrowRight size={18} />}
-                                >
-                                    View Profile
-                                </Button> */}
+                                    
                                 </div>
                                 <div className="mt-4 flex  items-center gap-5 text-sm text-zinc-400">
                                     <div className="flex items-center gap-1">
@@ -119,7 +116,7 @@ export default function TopLegalExperts() {
                                             size={16}
                                             className="fill-yellow-500 text-yellow-500"
                                         />
-                                        <span>{lawyer.rating}</span>
+                                        <span>{lawyer.rating || 4.8}</span>
                                     </div>
 
                                     <div className="flex items-center gap-1">
@@ -127,7 +124,7 @@ export default function TopLegalExperts() {
                                             size={16}
                                             className="text-yellow-500"
                                         />
-                                        <span>{lawyer.hires} Cases</span>
+                                        <span>{lawyer.hires || 310} Cases</span>
                                     </div>
 
                                     <div className="flex items-center gap-1">
@@ -135,7 +132,7 @@ export default function TopLegalExperts() {
                                             size={16}
                                             className="text-yellow-500"
                                         />
-                                        <span>{lawyer.experience}</span>
+                                        <span>{lawyer.experience || 10}</span>
                                     </div>
                                 </div>
                             </div>

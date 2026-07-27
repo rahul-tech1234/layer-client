@@ -17,7 +17,7 @@ import {
 } from "react-icons/fa";
 
 export default function ServiceDetails({ service, user, cmt }) {
-    //console.log("service", service);
+    console.log("service", service);
     const id = service?._id;
     const { data: session } = useSession();
     const email = session?.user?.email;

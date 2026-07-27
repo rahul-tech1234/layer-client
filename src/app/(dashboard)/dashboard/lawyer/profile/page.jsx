@@ -42,6 +42,7 @@ const LawyerProfile = () => {
     const { data: session, isPending } = useSession();
     const user = session?.user;
     const email = user?.email;
+    //console.log("page", email);
 
     const [myPro, setMyPro] = useState(null);
 
@@ -59,7 +60,7 @@ const LawyerProfile = () => {
     if (isPending) {
         return <span>Loading</span>;
     }
-    if (!user && user?.role !== "lawyer") {
+    if (!user || user?.role !== "lawyer") {
         redirect("/auth/login");
     }
 
@@ -92,13 +93,14 @@ const LawyerProfile = () => {
             }
         }
     };
+    console.log("mypro", myPro);
 
     return (
         <section className="bg-black py-10">
             <div className="mx-auto max-w-4xl rounded-3xl bg-white p-8 shadow-lg">
                 {/* Heading */}
                 <DashboardHeading
-                    title={"Manage Legal Profile"}
+                    title={`${myPro ? "Manage Profile" : "Create Profile"}`}
                     des={
                         " your legal profile updated so clients can easily find and hire you."
                     }
