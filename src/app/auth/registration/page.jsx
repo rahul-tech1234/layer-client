@@ -47,15 +47,20 @@ export default function RegisterPage() {
                     ...data,
                     image: userPro,
                 });
-           // console.log(data);
+            // console.log(data);
             if (registerData) {
                 toast.success("Welcome! Your account has been created.");
                 if (registerData?.user?.role === "client") {
                     router.push("/browse-lawyers");
                     return;
-                } else {
+                } else if (registerData?.user?.role === "lawyer") {
                     router.push(
                         `/dashboard/${registerData?.user?.role}/profile`,
+                    );
+                }
+                {
+                    router.push(
+                        `/dashboard/${registerData?.user?.role}/manage-users`,
                     );
                 }
                 return;

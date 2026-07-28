@@ -12,6 +12,7 @@ export const ClienthireHistory = async (email) => {
     return data;
 };
 export const getCmt = async (id) => {
+    console.log("baseUrl", baseUrl);
     const token = await getTokenServer();
     const res = await fetch(`${baseUrl}api/get/cmt/hireing/${id}`, {
         headers: {
@@ -23,12 +24,14 @@ export const getCmt = async (id) => {
 };
 export const getMyAllcmt = async (email) => {
     const token = await getTokenServer();
+    //  console.log("Token", token);
     const res = await fetch(`${baseUrl}api/all/cmt/hireing/${email}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     });
     const data = await res.json();
+    //console.log("Data", data);
     return data;
 };
 export const findUserProfile = async (id) => {

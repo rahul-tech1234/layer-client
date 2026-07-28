@@ -149,14 +149,16 @@ export default function ServiceDetails({ service, user, cmt }) {
                                 <h3 className="text-xl font-semibold">
                                     About this Service
                                 </h3>
-                                {user?.role === "client" && !hire && (
-                                    <Button
-                                        className="rounded-sm"
-                                        onClick={handleClintBook}
-                                    >
-                                        Hire
-                                    </Button>
-                                )}
+                                {user?.role === "client" &&
+                                    !hire &&
+                                    service.status === "active" && (
+                                        <Button
+                                            className="rounded-sm"
+                                            onClick={handleClintBook}
+                                        >
+                                            Hire
+                                        </Button>
+                                    )}
 
                                 {/* <div className="rounded-3xl border border-default-200 bg-content1 p-6 shadow-md">
                                     <h2 className="text-2xl font-bold text-foreground">

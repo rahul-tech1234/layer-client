@@ -19,8 +19,9 @@ const Details = async ({ params }) => {
     const { id } = await params;
 
     const details = await LawyerServiceDetails(id);
-    console.log(`ID: ${id} Details ${details}`);
+    // console.log(`ID: ${id} Details ${details}`);
     const cmt = await getCmt(details?._id);
+
     //console.log("cmt page", cmt);
 
     return (

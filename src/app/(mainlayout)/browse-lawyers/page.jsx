@@ -9,7 +9,7 @@ const BrowseLawyers = async ({ searchParams }) => {
     const category = sparams.category || "";
     const search = sparams.search || "";
     const page = sparams.page || 1;
-    const limit = sparams.limit || 5;
+    const limit = sparams.limit || 9;
 
     const params = new URLSearchParams();
     if (category) {
@@ -72,7 +72,8 @@ const BrowseLawyers = async ({ searchParams }) => {
                         <Pagination.Content className="text-center">
                             <Pagination.Item>
                                 <Pagination.Previous isDisabled={page == 1}>
-                                    <Link className="flex items-center"
+                                    <Link
+                                        className="flex items-center"
                                         href={`/browse-lawyers?page=${Number(page) - 1}`}
                                     >
                                         <Pagination.PreviousIcon />
@@ -104,7 +105,7 @@ const BrowseLawyers = async ({ searchParams }) => {
                                         className="flex items-center"
                                     >
                                         Next
-                                        <Pagination.NextIcon  />
+                                        <Pagination.NextIcon />
                                     </Link>
                                 </Pagination.Next>
                             </Pagination.Item>

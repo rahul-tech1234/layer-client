@@ -77,7 +77,7 @@ export default function TopLegalExperts({ lawyers }) {
                                                     lawyer.image ||
                                                     "https://i.pravatar.cc/300?img=11"
                                                 }
-                                                alt={lawyer.name}
+                                                alt={lawyer?.title}
                                                 width={90}
                                                 height={90}
                                                 className="h-20 w-20 rounded-full border-4 border-yellow-500 object-cover"
@@ -108,7 +108,6 @@ export default function TopLegalExperts({ lawyers }) {
                                             {lawyer.category}
                                         </p>
                                     </div>
-                                    
                                 </div>
                                 <div className="mt-4 flex  items-center gap-5 text-sm text-zinc-400">
                                     <div className="flex items-center gap-1">

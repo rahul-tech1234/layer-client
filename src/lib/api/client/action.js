@@ -1,4 +1,5 @@
 import { baseUrl } from "../baseUrl";
+import { getTokenServer } from "../getTokenServer";
 import { serverMutation } from "../server";
 
 export const addCmt = async (id, data) => {
@@ -7,8 +8,12 @@ export const addCmt = async (id, data) => {
 };
 
 export const cmtDelete = async (id) => {
+    const token = await getTokenServer();
     const res = await fetch(`${baseUrl}api/cmt/delete/${id}`, {
         method: "PATCH",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
     });
 
     return await res.json();

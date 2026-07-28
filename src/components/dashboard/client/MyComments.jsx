@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { EditCommentModal } from "./CmtModal";
 
 export default function MyComments({ comments }) {
+    console.log("comments", comments);
     const handleDelete = async (id) => {
         // console.log(id, "del");
         const cmt = await cmtDelete(id);

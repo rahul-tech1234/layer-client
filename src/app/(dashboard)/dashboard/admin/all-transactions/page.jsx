@@ -5,7 +5,7 @@ import { allUserTransaction } from "@/lib/api/admin/data";
 
 const page = async () => {
     const usersTrans = await allUserTransaction();
-   // console.log(usersTrans);
+    // console.log(usersTrans);
     return (
         <div>
             <DashboardHeading

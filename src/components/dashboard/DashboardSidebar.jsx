@@ -87,7 +87,7 @@ export default function DashboardSidebar() {
         {
             name: "Manage Users",
             icon: FaUserTie,
-            href: "/dashboard/admin/manage-users ",
+            href: "/dashboard/admin/manage-users",
         },
         {
             name: "All Transactions ",

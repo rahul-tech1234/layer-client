@@ -22,7 +22,7 @@ const SearchBar = () => {
             {" "}
             <input
                 type="text"
-                 onClick={handleSearch}
+                onClick={handleSearch}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search by lawyer or title..."
@@ -30,7 +30,7 @@ const SearchBar = () => {
             />
             <FiSearch className="absolute left-4 text-lg text-gray-400" />
             <button
-               
+                onClick={handleSearch}
                 className="absolute right-2 rounded-full bg-blue-600 px-5 py-1.5 text-sm font-medium text-white transition hover:bg-blue-700"
             >
                 Search

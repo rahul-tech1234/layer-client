@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Avatar, Button, Link } from "@heroui/react";
 import { usePathname } from "next/navigation";
 import SearchBar from "./SearchBar";
@@ -9,7 +9,7 @@ import { authClient, useSession } from "@/lib/auth-client";
 import Logo from "./Logo";
 import ThemeSwitch from "./ThemeSwitch";
 
-export function Navbar({ searchParams }) {
+export function Navbar() {
     const [params, setParams] = useState(null);
     const { data: session } = useSession();
     const user = session?.user;
@@ -28,19 +28,6 @@ export function Navbar({ searchParams }) {
             href: "/browse-lawyers",
         },
     ];
-    // useEffect(() => {
-    //     const handlseSearchName = async () => {
-    //         const sParams = await searchParams;
-    //         return setParams(sParams);
-    //     };
-    //     handlseSearchName();
-    // });
-    //    useEffect(() => {
-    //        const handleSearchByTitle = async () => {
-    //            const params = new URLSearchParams();
-
-    //        };
-    //    });
 
     const links = (
         <>

@@ -39,8 +39,13 @@ export default function LoginPage() {
                 if (signInData?.user?.role === "client") {
                     router.push("/browse-lawyers");
                     return;
-                } else {
+                } else if (signInData?.user?.role === "lawyer") {
                     router.push(`/dashboard/${signInData?.user?.role}/profile`);
+                }
+                {
+                    router.push(
+                        `/dashboard/${signInData?.user?.role}/manage-users`,
+                    );
                 }
             }
             if (signInError) {
